@@ -17,14 +17,14 @@ $result = mysqli_query($conexion, $consulta);
 $row = mysqli_fetch_array($result);
 
 if(isset($row)){
-  $row['success'] = true;
   echo json_encode($row, true);
 }
 else{
   $row = array();
-  $row['success'] = false;
+  $row['id_login_app'] = 0;
   echo json_encode($row, true);
 }
+
 
 
 $conexion->close();

@@ -15,9 +15,9 @@ function connect(){
 	$password = "info2000";
 	$dbname = "code_web";
 	$port = 3306;
-	$host = "200.23.39.11"; //Ip Externa
+	//$host = "200.23.39.11"; //Ip Externa
 	//$host = 'localhost';
-	//$host = "10.0.7.40"; //Ip Interna
+	$host = "10.0.7.40"; //Ip Interna
 
 // Create connection
 	$conn = mysqli_connect($host, $user, $password, $dbname);

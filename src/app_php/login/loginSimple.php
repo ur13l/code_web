@@ -7,7 +7,6 @@
 
 include("../conexion/conexion.php");
 $conexion = connect();
-$data = json_decode(file_get_contents('php://input'), true);
 $correo = $_POST["correo"];
 $password = $_POST['password'];
 $consulta = "SELECT id_login_app, correo, facebook, google FROM login_app WHERE correo = '$correo'
@@ -16,7 +15,6 @@ $result = mysqli_query($conexion, $consulta);
 $row = mysqli_fetch_array($result);
 
 if(isset($row)){
-  $row['id_login_app'] = 1;
   echo json_encode($row, true);
 }
 else{
