@@ -18,13 +18,11 @@ function connect(){
 	//$host = "200.23.39.11"; //Ip Externa
 	//$host = 'localhost';
 	$host = "10.0.7.40"; //Ip Interna
-
 // Create connection
 	$conn = mysqli_connect($host, $user, $password, $dbname);
-
 	// Check connection
 	if (!$conn) {
-	    die("Connection failed: " . mysqli_connect_error());
+	    echo "Connection failed: " . mysqli_connect_error();
 	}
 	return $conn;
 }
