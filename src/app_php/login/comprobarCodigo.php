@@ -10,7 +10,7 @@ $conexion = connect();
 $correo = $_POST["correo"];
 $codigo = $_POST["codigo"];
 $consulta = "SELECT * FROM codigo_login_password lp, login_app l WHERE l.correo = '$correo'
-    AND  lp.codigo = '$codigo' AND l.id_login_app = lp.id_login_app";
+    AND  lp.codigo = '$codigo' AND NOW() < caducidad  AND l.id_login_app = lp.id_login_app";
 $result = mysqli_query($conexion, $consulta);
 $row = mysqli_fetch_array($result);
 
