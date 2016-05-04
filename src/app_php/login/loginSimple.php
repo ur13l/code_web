@@ -16,6 +16,8 @@ $row = mysqli_fetch_array($result);
 
 if(isset($row)){
   echo json_encode($row, true);
+  $consulta = "INSERT INTO bitacora_login VALUES ('".$row['id_login_app']."', now())";
+  $result = mysqli_query($conexion, $consulta);
 }
 else{
   $row = array();

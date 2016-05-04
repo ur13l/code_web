@@ -16,7 +16,10 @@ $result = mysqli_query($conexion, $consulta);
 $row = mysqli_fetch_array($result);
 
 if(isset($row)){
+  $row['inserted'] = 0;
   echo json_encode($row, true);
+  $consulta = "INSERT INTO bitacora_login VALUES ('".$row['id_login_app']."', now())";
+  $result = mysqli_query($conexion, $consulta);
 }
 
 //Si la consulta no encuentra un registro, lo genera.
@@ -25,16 +28,12 @@ else{
   $result = mysqli_query($conexion, $consulta);
   $row = mysqli_fetch_array($result);
   if(!isset($row)){
-    $consulta = "INSERT INTO login_app (correo, facebook, google) VALUES
-          ('$correo', 0, 1);";
-    $result = mysqli_query($conexion, $consulta);
-
-    $consulta = "SELECT id_login_app, correo, facebook, google FROM login_app
-      HERE correo = '$correo' AND facebook = 0 AND google = 1";
-
-    $result = mysqli_query($conexion, $consulta);
-    $row = mysqli_fetch_array($result);
+    $row['correo'] = $correo;
+    $row['facebook'] = 0;
+    $row['google'] = 1;
+    $row['inserted'] = 1;
     echo json_encode($row, true);
+
   }
   else{
     $row = array('id_login_app'=>-1);
