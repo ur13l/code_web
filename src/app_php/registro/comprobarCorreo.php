@@ -17,7 +17,7 @@
   if(isset($row)){
     echo "true";
   }
-  else{
+  else if ($conexion){
     echo "false";
   }
 
