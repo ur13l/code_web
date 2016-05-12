@@ -21,5 +21,5 @@
     echo "false";
   }
 
-
+  $conexion->close();
 ?>

@@ -36,5 +36,5 @@
   else{
     echo "0";
   }
-
+  $conexion->close();
 ?>
