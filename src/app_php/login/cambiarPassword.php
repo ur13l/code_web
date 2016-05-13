@@ -10,7 +10,6 @@ $correo = $_POST["correo"];
 $password = $_POST["password"];
 $consulta = "UPDATE login_app SET password = MD5('$password') WHERE correo = '$correo';";
 
-
 if(!$result = mysqli_query($conexion, $consulta))
 {
     echo "error";
