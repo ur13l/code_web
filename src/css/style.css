@@ -30,3 +30,8 @@ body {
  .input-field .prefix.active {
    color: #126fb7;
  }
+
+ /* Color del datepicker */
+ .picker__date-display, .picker__weekday-display{
+    background-color: #2196F3;
+}

@@ -1,75 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="../../materialize/css/materialize.min.css">
-    <link rel="stylesheet" href="../../css/style.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script type="text/javascript" src="../../js/jquery-1.12.3.js"></script>
-    <script type="text/javascript" src="../../materialize/js/materialize.js"></script>
-    <script type="text/javascript">
-   $(document).ready(function(){
-      $(".button-collapse").sideNav();
-     console.log("NO");
-   });
- </script>
-    <?php
-      session_start();
-      if (isset($_SESSION['usuario_correo'])) {
-        $correo = $_SESSION['usuario_correo'];
-      } else {
-        echo "No hay usuario";
-      }
-     ?>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="../../materialize/css/materialize.min.css">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/lolliclock.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script type="text/javascript" src="../../js/jquery-1.12.3.js"></script>
+  <script type="text/javascript" src="../../js/lolliclock.js"></script>
+  <script type="text/javascript" src="../../materialize/js/materialize.js"></script>
+  <script type="text/javascript" src="../../js/eventos.js">
+
+  });
+  </script>
+  <?php
+  session_start();
+  if (isset($_SESSION['usuario_correo'])) {
+    $correo = $_SESSION['usuario_correo'];
+  } else {
+    header("Locationheader:../../index.html");
+  }
+  ?>
 </head>
 <body>
   <?php
-    include("../defines/nav.php");
-   ?>
-<div class="container">
-  <div class="row">
-    <table>
-            <thead>
-              <tr>
-                  <th data-field="titulo">Título</th>
-                  <th data-field="descripcion">Descripción</th>
-                  <th data-field="fecha_inicio">Inicia</th>
-                  <th data-field="fecha_fin">Termina</th>
-                  <th data-field="tipo">Tipo</th>
+  include("../defines/nav.php");
+  ?>
+  <div class="container">
+    <div class="row">
+      <table>
+        <thead>
+          <tr>
+            <th data-field="titulo">Título</th>
+            <th data-field="descripcion">Descripción</th>
+            <th data-field="fecha_inicio">Inicia</th>
+            <th data-field="fecha_fin">Termina</th>
+            <th data-field="tipo">Tipo</th>
 
-              </tr>
-            </thead>
+          </tr>
+        </thead>
 
-            <tbody>
-              <?php
-                include("../../app_php/conexion/conexion.php");
-                $conexion = connect();
-                $consulta = "SET NAMES UTF8";
-                mysqli_query($conexion, $consulta);
+        <tbody>
+          <?php
+          include("../../app_php/conexion/conexion.php");
+          $conexion = connect();
+          $consulta = "SET NAMES UTF8";
+          mysqli_query($conexion, $consulta);
 
-                $consulta = "SELECT * FROM evento";
-                $result = mysqli_query($conexion, $consulta);
+          $consulta = "SELECT * FROM evento";
+          $result = mysqli_query($conexion, $consulta);
 
 
-                while ($row = mysqli_fetch_array($result)){
-                  echo "
-                  <tr>
-                    <td><input type='text' value='".$row['titulo'] ."'</td>
-                    <td><input type='text' value='".$row['descripcion'] ."'</td>
-                    <td><input type='text' value='".$row['fecha_inicio'] ."'</td>
-                    <td><input type='text' value='".$row['fecha_fin'] ."'</td>
-                    <td><input type='text' value='".$row['tipo'] ."'</td>
-                  </tr>
-                  ";
-                }
-                $conexion->close();
+          while ($row = mysqli_fetch_array($result)){
+            echo "
+            <tr>
+            <td>".$row['titulo'] ."</td>
+            <td>".$row['descripcion'] ."</td>
+            <td>".$row['fecha_inicio'] ."</td>
+            <td>".$row['fecha_fin'] ."</td>
+            <td>".$row['tipo'] ."</td>
+            </tr>
+            ";
+          }
+          $conexion->close();
 
-              ?>
-            </tbody>
-          </table>
-   </div>
-    <a class="btn-floating btn-large waves-effect waves-light red right"><i class="material-icons">add</i></a>
- </div>
+          ?>
+        </tbody>
+      </table>
+    </div>
+    <a href="#modal1" class="btn-floating btn-large waves-effect waves-light red right btn modal-trigger">
+      <i class="material-icons" id="new-event">add</i>
+    </a>
+
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>Detalles del evento</h4>
+        <p>
+          <div class="row">
+            <form class="col s12">
+              <div class="row">
+                <div class="input-field col s12">
+                  <input placeholder="Título" id="titulo" type="text" class="validate">
+                  <label for="titulo">Título</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <textarea id="descripcion" class="materialize-textarea validate"></textarea>
+                  <label for="descripcion">Descripción</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s6">
+                  <input placeholder="Título" id="fecha-inicio" type="text" class="datepicker ">
+                  <label for="fecha-inicio">Fecha de inicio</label>
+                </div>
+                <div class="input-field col s6">
+                  <input placeholder="Título" id="hora-inicio" type="text" class="timepicker ">
+                  <label for="hora-inicio">Hora de inicio</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s6">
+                  <input placeholder="Título" id="fecha-fin" type="text" class="datepicker">
+                  <label for="fecha-fin">Fecha de finalización</label>
+                </div>
+                <div class="input-field col s6">
+                  <input placeholder="Título" id="hora-fin" type="text" class="timepicker">
+                  <label for="hora-fin">Hora de finalización</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <select id="tipo">
+                    <option value="" disabled selected>Elige una opción</option>
+                    <option value="1">Competencia de deportista olímpico</option>
+                    <option value="2">Información general</option>
+                  </select>
+                  <label>Tipo de evento</label>
+                </div>
+
+              </div>
+            </form>
+          </div>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class=" modal-action waves-effect waves-green btn-flat" id="guardar-evento">Guardar</a>
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+      </div>
+    </div>
+
+  </div>
 </body>
 </html>

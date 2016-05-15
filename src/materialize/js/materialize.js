@@ -1960,7 +1960,7 @@ $(document).ready(function(){
         }
         else {
           // Insert as text;
-          toast.innerHTML = html; 
+          toast.innerHTML = html;
         }
         // Bind hammer
         var hammerHandler = new Hammer(toast, {prevent_default: false});
@@ -2539,9 +2539,9 @@ $(document).ready(function(){
 		    var offset = $(this.hash).offset().top + 1;
 
 //          offset - 200 allows elements near bottom of page to scroll
-			
+
 	    	$('html, body').animate({ scrollTop: offset - 200 }, {duration: 400, queue: false, easing: 'easeOutCubic'});
-			
+
 		  });
 		});
 		options = options || {
@@ -2742,7 +2742,7 @@ $(document).ready(function(){
         $(this).addClass('tabbed');
         var $this = $(this);
         $this.one('blur', function(e) {
-          
+
           $(this).removeClass('tabbed');
         });
         return;
@@ -5202,7 +5202,8 @@ function DatePicker( picker, settings ) {
             if ( calendar.disabled( calendar.get('now') ) ) {
                 includeToday = ':not(.' + settings.klass.buttonToday + ')'
             }
-            picker.$root.find( 'button' + includeToday + ', select' ).attr( 'disabled', false )
+            picker.$root.find( 'button' + includeToday + ', select' ).attr( 'disabled', false );
+            $('.picker').appendTo('body');
         }, 1 ).
         on( 'close', function() {
             picker.$root.find( 'button, select' ).attr( 'disabled', true )

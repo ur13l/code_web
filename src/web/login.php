@@ -10,7 +10,7 @@ $row = mysqli_fetch_array($result);
 
 if(isset($row)) {
   echo "BIEN";
-  //header("Location:login.php");
+  //
 }
 else{
   echo "Correo o Contraseña incorrecta";
