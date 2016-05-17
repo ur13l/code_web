@@ -1,4 +1,5 @@
 var action;
+var id;
 
 
 /**
@@ -94,6 +95,7 @@ $(document).ready(function(){
   //Se ejecuta al darle click al botón de más, permite configurar la acción a 'create'
    $('#new-event').on('click', function(){
      action = 'create';
+     id = null;
    });
 
    $('#guardar-evento').on('click', function(){
@@ -112,7 +114,8 @@ $(document).ready(function(){
             fecha_inicio: moment($("#fecha-inicio").val() +" "+ $("#hora-inicio").val(), "DD/MM/YYYY HH:mm").format("YYYY-MM-DD HH:mm"),
             fecha_fin: moment($("#fecha-fin").val() +" "+ $("#hora-fin").val(), "DD/MM/YYYY HH:mm").format("YYYY-MM-DD HH:mm"),
             tipo: $("#tipo option:selected").val(),
-            action: action
+            action: action,
+            id: id
           };
           $.ajax({
               // la URL para la petición
@@ -157,6 +160,7 @@ $(document).ready(function(){
    //Cuando se selecciona un elemento de la tabla debe mostrarse el modal
    $(".item-evento").on('click', function(){
      action = 'update';
+     id= $($(this).children()[0]).val()
      $('#modal1').openModal();
      $($("#titulo").val($($(this).children()[1]).html()).siblings()[0]).addClass("active");
      $($("#descripcion").val($($(this).children()[2]).html()).siblings()[0]).addClass("active");
@@ -171,9 +175,22 @@ $(document).ready(function(){
 
      $("#hora-inicio").val(moment(f1,"YYYY-MM-DD HH:mm:ss").format("HH:mm"));
      $($("#hora-inicio").siblings("label")[0]).addClass("active");
-     
+
      $("#hora-fin").val(moment(f2,"YYYY-MM-DD HH:mm:ss").format("HH:mm"));
      $($("#hora-fin").siblings("label")[0]).addClass("active");
+
+     $('#tipo').val($($(this).children()[5]).html());
+     $('#tipo').material_select();
    });
+
+
+   //Mostrar paginación
+   $('#pagination-demo').twbsPagination({
+        totalPages: 35,
+        visiblePages: 7,
+        onPageClick: function (event, page) {
+            $('#page-content').text('Page ' + page);
+        }
+    });
 
 });

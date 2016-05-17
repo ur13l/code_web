@@ -1,3 +1,12 @@
+<?php
+session_start();
+if (isset($_SESSION['usuario_correo'])) {
+  $correo = $_SESSION['usuario_correo'];
+} else {
+  header("Locationheader:../../index.html");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,15 +22,8 @@
   <script type="text/javascript" src="../../materialize/js/materialize.js"></script>
   <script type="text/javascript" src="../../js/moment.js"></script>
   <script type="text/javascript" src="../../js/toastr.min.js"></script>
+  <script type="text/javascript" src="../../js/jquery.twbsPagination.min.js"></script>
   <script type="text/javascript" src="../../js/eventos.js"> </script>
-  <?php
-  session_start();
-  if (isset($_SESSION['usuario_correo'])) {
-    $correo = $_SESSION['usuario_correo'];
-  } else {
-    header("Locationheader:../../index.html");
-  }
-  ?>
 </head>
 <body>
   <?php
@@ -42,40 +44,14 @@
         </thead>
 
         <tbody>
-          <?php
-          include("../../app_php/conexion/conexion.php");
-          $conexion = connect();
-          $consulta = "SET NAMES UTF8";
-          mysqli_query($conexion, $consulta);
-
-          $consulta = "SELECT * FROM evento";
-          $result = mysqli_query($conexion, $consulta);
-
-
-          while ($row = mysqli_fetch_array($result)){
-            echo "
-            <a href='#' class='item-evento'>
-            <tr  class='item-evento'>
-            <input type='hidden' value='".$row['id_evento']."'>
-            <td>".$row['titulo'] ."</td>
-            <td>".$row['descripcion'] ."</td>
-            <td>".$row['fecha_inicio'] ."</td>
-            <td>".$row['fecha_fin'] ."</td>
-            <td>".$row['tipo'] ."</td>
-            </tr>
-            </a>
-            ";
-          }
-          $conexion->close();
-
-          ?>
+          
         </tbody>
       </table>
     </div>
     <a href="#modal1" class="btn-floating btn-large waves-effect waves-light red right btn modal-trigger">
       <i class="material-icons" id="new-event">add</i>
     </a>
-
+<ul id="pagination-demo" class="pagination-sm"></ul>
 
     <!-- Modal Structure -->
     <div id="modal1" class="modal">

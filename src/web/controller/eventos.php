@@ -31,6 +31,26 @@ switch($action){
               WHERE id_evento = '$id'";
     mysqli_query($conexion, $consulta);
     echo '{"success":"true"}';
+  break;
+  case 'read':
+  $page = $_POST['page'];
+  $consulta = "SELECT * FROM evento ORDER BY fecha_actualizacion DESC";
+  $result = mysqli_query($conexion, $consulta);
+  //echo json_encode()
+    /*echo "
+    <a href='#' class='item-evento'>
+    <tr  class='item-evento'>
+    <input type='hidden' value='".$row['id_evento']."'>
+    <td>".$row['titulo'] ."</td>
+    <td>".$row['descripcion'] ."</td>
+    <td>".$row['fecha_inicio'] ."</td>
+    <td>".$row['fecha_fin'] ."</td>
+    <td>".$row['tipo'] ."</td>
+    </tr>
+    </a>
+    ";
+    */
+  break;
 }
 $conexion->close();
 
