@@ -113,7 +113,7 @@ $(document).ready(function(){
             fecha_fin: moment($("#fecha-fin").val() +" "+ $("#hora-fin").val(), "DD/MM/YYYY HH:mm").format("YYYY-MM-DD HH:mm"),
             tipo: $("#tipo option:selected").val(),
             action: action
-          }
+          };
           $.ajax({
               // la URL para la petición
               url : '../controller/eventos.php',
@@ -152,6 +152,28 @@ $(document).ready(function(){
 
    $(".vald").change(function(){
      $(this).removeClass("invalid");
-   })
+   });
+
+   //Cuando se selecciona un elemento de la tabla debe mostrarse el modal
+   $(".item-evento").on('click', function(){
+     action = 'update';
+     $('#modal1').openModal();
+     $($("#titulo").val($($(this).children()[1]).html()).siblings()[0]).addClass("active");
+     $($("#descripcion").val($($(this).children()[2]).html()).siblings()[0]).addClass("active");
+
+     var f1 = $($(this).children()[3]).html();
+     $("#fecha-inicio").val(moment(f1,"YYYY-MM-DD HH:mm:ss").format("DD/MM/YYYY"));
+     $($("#fecha-inicio").siblings("label")[0]).addClass("active");
+
+     var f2 = $($(this).children()[4]).html();
+     $("#fecha-fin").val(moment(f2,"YYYY-MM-DD HH:mm:ss").format("DD/MM/YYYY"));
+     $($("#fecha-fin").siblings("label")[0]).addClass("active");
+
+     $("#hora-inicio").val(moment(f1,"YYYY-MM-DD HH:mm:ss").format("HH:mm"));
+     $($("#hora-inicio").siblings("label")[0]).addClass("active");
+     
+     $("#hora-fin").val(moment(f2,"YYYY-MM-DD HH:mm:ss").format("HH:mm"));
+     $($("#hora-fin").siblings("label")[0]).addClass("active");
+   });
 
 });

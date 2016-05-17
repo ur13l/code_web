@@ -29,7 +29,7 @@
   ?>
   <div class="container">
     <div class="row">
-      <table>
+      <table class="highlight">
         <thead>
           <tr>
             <th data-field="titulo">Título</th>
@@ -54,13 +54,16 @@
 
           while ($row = mysqli_fetch_array($result)){
             echo "
-            <tr>
+            <a href='#' class='item-evento'>
+            <tr  class='item-evento'>
+            <input type='hidden' value='".$row['id_evento']."'>
             <td>".$row['titulo'] ."</td>
             <td>".$row['descripcion'] ."</td>
             <td>".$row['fecha_inicio'] ."</td>
             <td>".$row['fecha_fin'] ."</td>
             <td>".$row['tipo'] ."</td>
             </tr>
+            </a>
             ";
           }
           $conexion->close();
