@@ -15,10 +15,10 @@
   $telefono = $_POST["telefono"];
 
   //Se verifica que exista un registro del usuario en la tabla.
-    $consulta = "SELECT id_login_app FROM datos_perfil WHERE id_login_app = '$id_login_app'";
+  $consulta = "SELECT id_login_app FROM datos_perfil WHERE id_login_app = '$id_login_app'";
   $result = mysqli_query($conexion, $consulta);
   $id = mysqli_fetch_row($result)[0];
-  
+
   //Si el usuario ya existe se hace un UPDATE.
   if(isset($id)){
     $consulta = "UPDATE datos_perfil SET nombre = '$nombre', id_genero = '$genero',

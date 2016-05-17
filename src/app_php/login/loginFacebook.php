@@ -36,7 +36,7 @@ else{
   }
   //El correo ya se encuentra registrado con otro método.
   else{
-    $row = array('id_login_app'=>-1);
+    $row = array('id_login_app'=>"-1");
     echo json_encode($row, true);
   }
 }

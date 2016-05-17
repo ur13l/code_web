@@ -6,14 +6,14 @@
   <link rel="stylesheet" href="../../materialize/css/materialize.min.css">
   <link rel="stylesheet" href="../../css/style.css">
   <link rel="stylesheet" href="../../css/lolliclock.css">
+  <link rel="stylesheet" href="../../css/toastr.min.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script type="text/javascript" src="../../js/jquery-1.12.3.js"></script>
   <script type="text/javascript" src="../../js/lolliclock.js"></script>
   <script type="text/javascript" src="../../materialize/js/materialize.js"></script>
-  <script type="text/javascript" src="../../js/eventos.js">
-
-  });
-  </script>
+  <script type="text/javascript" src="../../js/moment.js"></script>
+  <script type="text/javascript" src="../../js/toastr.min.js"></script>
+  <script type="text/javascript" src="../../js/eventos.js"> </script>
   <?php
   session_start();
   if (isset($_SESSION['usuario_correo'])) {
@@ -83,41 +83,41 @@
             <form class="col s12">
               <div class="row">
                 <div class="input-field col s12">
-                  <input placeholder="Título" id="titulo" type="text" class="validate">
+                  <input id="titulo" type="text" class="vald">
                   <label for="titulo">Título</label>
                 </div>
               </div>
               <div class="row">
                 <div class="input-field col s12">
-                  <textarea id="descripcion" class="materialize-textarea validate"></textarea>
+                  <textarea id="descripcion" class="materialize-textarea vald"></textarea>
                   <label for="descripcion">Descripción</label>
                 </div>
               </div>
               <div class="row">
                 <div class="input-field col s6">
-                  <input placeholder="Título" id="fecha-inicio" type="text" class="datepicker ">
+                  <input id="fecha-inicio" type="text" class="datepicker vald" >
                   <label for="fecha-inicio">Fecha de inicio</label>
                 </div>
                 <div class="input-field col s6">
-                  <input placeholder="Título" id="hora-inicio" type="text" class="timepicker ">
+                  <input id="hora-inicio" type="text" class="timepicker vald">
                   <label for="hora-inicio">Hora de inicio</label>
                 </div>
               </div>
               <div class="row">
                 <div class="input-field col s6">
-                  <input placeholder="Título" id="fecha-fin" type="text" class="datepicker">
+                  <input id="fecha-fin" type="text" class="datepicker vald">
                   <label for="fecha-fin">Fecha de finalización</label>
                 </div>
                 <div class="input-field col s6">
-                  <input placeholder="Título" id="hora-fin" type="text" class="timepicker">
+                  <input id="hora-fin" type="text" class="timepicker vald">
                   <label for="hora-fin">Hora de finalización</label>
                 </div>
               </div>
               <div class="row">
                 <div class="input-field col s12">
-                  <select id="tipo">
-                    <option value="" disabled selected>Elige una opción</option>
-                    <option value="1">Competencia de deportista olímpico</option>
+                  <select required id="tipo" class="validate">
+                    <option value="" disabled>Elige una opción</option>
+                    <option value="1" selected>Competencia de deportista olímpico</option>
                     <option value="2">Información general</option>
                   </select>
                   <label>Tipo de evento</label>
