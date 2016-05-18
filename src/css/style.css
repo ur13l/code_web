@@ -65,8 +65,3 @@ bottom: 0%;
 top: 90%;
 right: 0%;
 left: 0%; } }
-
-/** Pointer en los td */
-td{
-  cursor:pointer;
-}

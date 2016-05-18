@@ -39,7 +39,7 @@ if (isset($_SESSION['usuario_correo'])) {
             <th data-field="descripcion">Descripción</th>
             <th data-field="fecha_inicio">Inicia</th>
             <th data-field="fecha_fin">Termina</th>
-            <th data-field="tipo">Tipo</th>
+            <th data-field="eliminar">Eliminar</th>
 
           </tr>
         </thead>

@@ -92,45 +92,57 @@ function getEvents(page){
 function renderizarEventos(){
   $("#tabla-eventos").html("");
   for (var i = 0 ; i < eventos.length; i++){
-    var elem = "<tr class='item-evento'>" +
+    var fInicio = moment(eventos[i].fecha_inicio, "YYYY-MM-DD HH:mm:ss").format("DD/MM/YYYY [a las] HH:mm");
+    var fFin = moment(eventos[i].fecha_fin, "YYYY-MM-DD HH:mm:ss").format("DD/MM/YYYY [a las] HH:mm");
 
+    var elem = "<tr  class='item-evento'>" +
     "<input type='hidden' value='"+eventos[i].id_evento+"'>" +
     "<td>"+eventos[i].titulo+"</td>" +
     "<td>"+eventos[i].descripcion+"</td>" +
-    "<td>"+eventos[i].fecha_inicio+"</td>" +
-    "<td>"+eventos[i].fecha_fin+"</td>" +
-    "<td>"+eventos[i].tipo+"</td>" +
+    "<td>"+fInicio+"</td>" +
+    "<td>"+fFin+"</td>" +
+    "<input type='hidden' value='"+eventos[i].tipo+"'>" +
+    "<td><i class='material-icons delete' style='cursor:pointer'>delete</i></td>" +
     "</tr>";
     $("#tabla-eventos").append(elem);
 
-    //Cuando se selecciona un elemento de la tabla debe mostrarse el modal
-    $(".item-evento").on('click', function(){
-      action = 'update';
-      id= $($(this).children()[0]).val()
-      $('#modal1').openModal();
-      $($("#titulo").val($($(this).children()[1]).html()).siblings()[0]).addClass("active");
-      $($("#descripcion").val($($(this).children()[2]).html()).siblings()[0]).addClass("active");
 
-      var f1 = $($(this).children()[3]).html();
-      $("#fecha-inicio").val(moment(f1,"YYYY-MM-DD HH:mm:ss").format("DD/MM/YYYY"));
-      $($("#fecha-inicio").siblings("label")[0]).addClass("active");
-
-      var f2 = $($(this).children()[4]).html();
-      $("#fecha-fin").val(moment(f2,"YYYY-MM-DD HH:mm:ss").format("DD/MM/YYYY"));
-      $($("#fecha-fin").siblings("label")[0]).addClass("active");
-
-      $("#hora-inicio").val(moment(f1,"YYYY-MM-DD HH:mm:ss").format("HH:mm"));
-      $($("#hora-inicio").siblings("label")[0]).addClass("active");
-
-      $("#hora-fin").val(moment(f2,"YYYY-MM-DD HH:mm:ss").format("HH:mm"));
-      $($("#hora-fin").siblings("label")[0]).addClass("active");
-
-      $('#tipo').val($($(this).children()[5]).html());
-      $('#tipo').material_select();
-    });
   }
+  //Cuando se selecciona un elemento de la tabla debe mostrarse el modal
+  $(".item-evento").on('click', function(){
+    action = 'update';
+    id= $($(this).children()[0]).val()
+    $('#modal1').openModal();
+    $($("#titulo").val($($(this).children()[1]).html()).siblings()[0]).addClass("active");
+    $($("#descripcion").val($($(this).children()[2]).html()).siblings()[0]).addClass("active");
+
+    var f1 = $($(this).children()[3]).html();
+    $("#fecha-inicio").val(moment(f1,"DD/MM/YYYY [a las] HH:mm").format("DD/MM/YYYY"));
+    $($("#fecha-inicio").siblings("label")[0]).addClass("active");
+
+    var f2 = $($(this).children()[4]).html();
+    $("#fecha-fin").val(moment(f2,"DD/MM/YYYY [a las] HH:mm").format("DD/MM/YYYY"));
+    $($("#fecha-fin").siblings("label")[0]).addClass("active");
+
+    $("#hora-inicio").val(moment(f1,"DD/MM/YYYY [a las] HH:mm").format("HH:mm"));
+    $($("#hora-inicio").siblings("label")[0]).addClass("active");
+
+    $("#hora-fin").val(moment(f2,"DD/MM/YYYY [a las] HH:mm").format("HH:mm"));
+    $($("#hora-fin").siblings("label")[0]).addClass("active");
+
+    $('#tipo').val($($(this).children()[5]).val());
+    $('#tipo').material_select();
+  });
+
+  $(".delete").on('click', function(){
+    console.log($(this));
+  })
 }
 
+/**
+ * Función que define el número de páginas y elementos a mostrarse por cada página.
+ * @return void
+ */
 function definirPaginacion(){
   var obj = {
     action: 'count'
@@ -155,6 +167,21 @@ function definirPaginacion(){
       },
   });
 
+}
+
+/**
+ * Limpia los campos de la ventana modal de nuevo/modificar evento
+ * @return void
+ */
+function limpiarCampos(){
+  $("#titulo").val("");
+  $("#descripcion").val("");
+  $("#fecha-inicio").val("");
+  $("#hora-inicio").val("");
+  $("#fecha-fin").val("");
+  $("#hora-fin").val("");
+  $('#tipo').val("1");
+  $('#tipo').material_select();
 }
 
 $(document).ready(function(){

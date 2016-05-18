@@ -34,8 +34,11 @@ switch($action){
   break;
   case 'read':
     $page = $_POST['page'];
-    $min = $page * 10;  
-    $consulta = "SELECT * FROM evento ORDER BY fecha_actualizacion DESC LIMIT $min, 10";
+    $min = $page * 10;
+    $consulta = "SELECT * FROM evento ORDER BY
+      CASE WHEN fecha_inicio > NOW() THEN 1
+           WHEN fecha_inicio < NOW() THEN 2
+      END ASC, fecha_inicio LIMIT $min, 10";
     $result = mysqli_query($conexion, $consulta);
     $arr = array();
     while($row = mysqli_fetch_array($result)){
