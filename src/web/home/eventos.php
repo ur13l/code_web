@@ -24,6 +24,7 @@ if (isset($_SESSION['usuario_correo'])) {
   <script type="text/javascript" src="../../js/toastr.min.js"></script>
   <script type="text/javascript" src="../../js/jquery.twbsPagination.min.js"></script>
   <script type="text/javascript" src="../../js/eventos.js"> </script>
+
 </head>
 <body>
   <?php
@@ -43,8 +44,8 @@ if (isset($_SESSION['usuario_correo'])) {
           </tr>
         </thead>
 
-        <tbody>
-          
+        <tbody id="tabla-eventos">
+
         </tbody>
       </table>
     </div>

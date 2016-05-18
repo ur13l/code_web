@@ -33,24 +33,22 @@ switch($action){
     echo '{"success":"true"}';
   break;
   case 'read':
-  $page = $_POST['page'];
-  $consulta = "SELECT * FROM evento ORDER BY fecha_actualizacion DESC";
-  $result = mysqli_query($conexion, $consulta);
-  //echo json_encode()
-    /*echo "
-    <a href='#' class='item-evento'>
-    <tr  class='item-evento'>
-    <input type='hidden' value='".$row['id_evento']."'>
-    <td>".$row['titulo'] ."</td>
-    <td>".$row['descripcion'] ."</td>
-    <td>".$row['fecha_inicio'] ."</td>
-    <td>".$row['fecha_fin'] ."</td>
-    <td>".$row['tipo'] ."</td>
-    </tr>
-    </a>
-    ";
-    */
+    $page = $_POST['page'];
+    $min = $page * 10;  
+    $consulta = "SELECT * FROM evento ORDER BY fecha_actualizacion DESC LIMIT $min, 10";
+    $result = mysqli_query($conexion, $consulta);
+    $arr = array();
+    while($row = mysqli_fetch_array($result)){
+      array_push($arr, $row);
+    }
+    echo json_encode($arr);
   break;
+  case 'count':
+    $consulta = "SELECT COUNT(id_evento) as pages FROM evento";
+    $result = mysqli_query($conexion, $consulta);
+    $row = mysqli_fetch_array($result);
+    echo json_encode($row);
+    break;
 }
 $conexion->close();
 

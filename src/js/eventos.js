@@ -1,5 +1,7 @@
 var action;
 var id;
+var eventos;
+var paginaActiva = 0;
 
 
 /**
@@ -57,6 +59,103 @@ function compararFechas(inputF1, inputH1, inputF2, inputH2){
     return(f2.isAfter(f1));
 }
 
+/**
+ * Llamada AJAX que devuelve los eventos de una página
+ * @param  int page: Número de página (Comienza en 0)
+ * @return void
+ */
+function getEvents(page){
+  var obj = {
+    page: page,
+    action: 'read'
+  };
+  $.ajax({
+      url : '../controller/eventos.php',
+      data : obj,
+      type : 'POST',
+      dataType : 'json',
+      success : function(json) {
+          eventos = json;
+          renderizarEventos();
+      },
+      error : function(xhr, status) {
+          Materialize.toast("Hubo un error al procesar su solicitud", 4000, "red");
+      },
+
+  });
+}
+
+/**
+ * Función para mostrar los campos de los eventos.
+ * @return {[type]} [description]
+ */
+function renderizarEventos(){
+  $("#tabla-eventos").html("");
+  for (var i = 0 ; i < eventos.length; i++){
+    var elem = "<tr class='item-evento'>" +
+
+    "<input type='hidden' value='"+eventos[i].id_evento+"'>" +
+    "<td>"+eventos[i].titulo+"</td>" +
+    "<td>"+eventos[i].descripcion+"</td>" +
+    "<td>"+eventos[i].fecha_inicio+"</td>" +
+    "<td>"+eventos[i].fecha_fin+"</td>" +
+    "<td>"+eventos[i].tipo+"</td>" +
+    "</tr>";
+    $("#tabla-eventos").append(elem);
+
+    //Cuando se selecciona un elemento de la tabla debe mostrarse el modal
+    $(".item-evento").on('click', function(){
+      action = 'update';
+      id= $($(this).children()[0]).val()
+      $('#modal1').openModal();
+      $($("#titulo").val($($(this).children()[1]).html()).siblings()[0]).addClass("active");
+      $($("#descripcion").val($($(this).children()[2]).html()).siblings()[0]).addClass("active");
+
+      var f1 = $($(this).children()[3]).html();
+      $("#fecha-inicio").val(moment(f1,"YYYY-MM-DD HH:mm:ss").format("DD/MM/YYYY"));
+      $($("#fecha-inicio").siblings("label")[0]).addClass("active");
+
+      var f2 = $($(this).children()[4]).html();
+      $("#fecha-fin").val(moment(f2,"YYYY-MM-DD HH:mm:ss").format("DD/MM/YYYY"));
+      $($("#fecha-fin").siblings("label")[0]).addClass("active");
+
+      $("#hora-inicio").val(moment(f1,"YYYY-MM-DD HH:mm:ss").format("HH:mm"));
+      $($("#hora-inicio").siblings("label")[0]).addClass("active");
+
+      $("#hora-fin").val(moment(f2,"YYYY-MM-DD HH:mm:ss").format("HH:mm"));
+      $($("#hora-fin").siblings("label")[0]).addClass("active");
+
+      $('#tipo').val($($(this).children()[5]).html());
+      $('#tipo').material_select();
+    });
+  }
+}
+
+function definirPaginacion(){
+  var obj = {
+    action: 'count'
+  };
+  $.ajax({
+      url : '../controller/eventos.php',
+      data : obj,
+      type : 'POST',
+      dataType : 'json',
+      success : function(json) {
+        //Mostrar paginación
+        $('#pagination-demo').twbsPagination({
+             totalPages: Math.ceil(json.pages/10),
+             visiblePages: 5,
+             onPageClick: function (event, page) {
+                 getEvents(page-1);
+             }
+         });
+      },
+      error : function(xhr, status) {
+          Materialize.toast("Hubo un error al procesar su solicitud", 4000, "red");
+      },
+  });
+
+}
 
 $(document).ready(function(){
   //Configuración para generar el SideNav
@@ -157,40 +256,9 @@ $(document).ready(function(){
      $(this).removeClass("invalid");
    });
 
-   //Cuando se selecciona un elemento de la tabla debe mostrarse el modal
-   $(".item-evento").on('click', function(){
-     action = 'update';
-     id= $($(this).children()[0]).val()
-     $('#modal1').openModal();
-     $($("#titulo").val($($(this).children()[1]).html()).siblings()[0]).addClass("active");
-     $($("#descripcion").val($($(this).children()[2]).html()).siblings()[0]).addClass("active");
-
-     var f1 = $($(this).children()[3]).html();
-     $("#fecha-inicio").val(moment(f1,"YYYY-MM-DD HH:mm:ss").format("DD/MM/YYYY"));
-     $($("#fecha-inicio").siblings("label")[0]).addClass("active");
-
-     var f2 = $($(this).children()[4]).html();
-     $("#fecha-fin").val(moment(f2,"YYYY-MM-DD HH:mm:ss").format("DD/MM/YYYY"));
-     $($("#fecha-fin").siblings("label")[0]).addClass("active");
-
-     $("#hora-inicio").val(moment(f1,"YYYY-MM-DD HH:mm:ss").format("HH:mm"));
-     $($("#hora-inicio").siblings("label")[0]).addClass("active");
-
-     $("#hora-fin").val(moment(f2,"YYYY-MM-DD HH:mm:ss").format("HH:mm"));
-     $($("#hora-fin").siblings("label")[0]).addClass("active");
-
-     $('#tipo').val($($(this).children()[5]).html());
-     $('#tipo').material_select();
-   });
-
-
-   //Mostrar paginación
-   $('#pagination-demo').twbsPagination({
-        totalPages: 35,
-        visiblePages: 7,
-        onPageClick: function (event, page) {
-            $('#page-content').text('Page ' + page);
-        }
-    });
+   //Se trae el número de hojas y elementos.
+   definirPaginacion();
+    //Llamar a la primera página de eventos cuando se inicializa.
+    getEvents(paginaActiva);
 
 });
