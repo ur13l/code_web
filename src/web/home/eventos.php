@@ -35,10 +35,12 @@ if (isset($_SESSION['usuario_correo'])) {
       <table class="highlight">
         <thead>
           <tr>
+            <th data-field="check"></th>
             <th data-field="titulo">Título</th>
             <th data-field="descripcion">Descripción</th>
             <th data-field="fecha_inicio">Inicia</th>
             <th data-field="fecha_fin">Termina</th>
+            <th data-field="editar">Editar</th>
             <th data-field="eliminar">Eliminar</th>
 
           </tr>
@@ -49,9 +51,8 @@ if (isset($_SESSION['usuario_correo'])) {
         </tbody>
       </table>
     </div>
-    <a href="#modal1" class="btn-floating btn-large waves-effect waves-light red right btn modal-trigger">
-      <i class="material-icons" id="new-event">add</i>
-    </a>
+
+
 <ul id="pagination-demo" class="pagination-sm"></ul>
 
     <!-- Modal Structure -->
@@ -113,7 +114,26 @@ if (isset($_SESSION['usuario_correo'])) {
         <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
       </div>
     </div>
-
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <h4>Confirmar</h4>
+            <p id="delete-message">¿Desea eliminar el evento seleccionado?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="waves-effect waves-red btn-flat" onclick="$('#md1').closeModal(); return false;">Cancelar</a>
+            <a href="#" class="waves-effect waves-green btn-flat" onclick="deleteEvents()" id="md1_YesBtn">Sí</a>
+       </div>
+    </div>
   </div>
+<div class="fixed-action-btn" style="bottom: 10px; right: 24px;">
+  <a href="#modal1" class="btn-floating btn-large waves-effect waves-light red btn modal-trigger" >
+    <i class="material-icons" id="new-event">add</i>
+  </a>
+</div>
+<div class="fixed-action-btn" id="delete-selection" style="display:none; bottom: 10px; right: 100px;">
+  <a class="btn-floating btn-large waves-effect waves-light red btn" >
+    <i class="material-icons" id="new-event">delete</i>
+  </a>
+</div>
 </body>
 </html>

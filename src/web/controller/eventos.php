@@ -52,6 +52,14 @@ switch($action){
     $row = mysqli_fetch_array($result);
     echo json_encode($row);
     break;
+  case 'delete':
+    $ids = json_decode($_POST['ids']);
+    for($i = 0 ; $i < count($ids) ; $i++){
+      $consulta = "DELETE FROM evento WHERE id_evento = '".$ids[$i]."'";
+      $result = mysqli_query($conexion, $consulta);
+    }
+    echo '{"success":"true"}';
+    break;
 }
 $conexion->close();
 

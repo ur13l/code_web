@@ -2,6 +2,7 @@ var action;
 var id;
 var eventos;
 var paginaActiva = 0;
+var eliminarIds;
 
 
 /**
@@ -97,30 +98,32 @@ function renderizarEventos(){
 
     var elem = "<tr  class='item-evento'>" +
     "<input type='hidden' value='"+eventos[i].id_evento+"'>" +
+    "<td> <input type='checkbox' id='chk"+eventos[i].id_evento+"' class='filled-in chk'/>  <label for='chk"+eventos[i].id_evento+"'></label></td>" +
     "<td>"+eventos[i].titulo+"</td>" +
     "<td>"+eventos[i].descripcion+"</td>" +
     "<td>"+fInicio+"</td>" +
     "<td>"+fFin+"</td>" +
     "<input type='hidden' value='"+eventos[i].tipo+"'>" +
-    "<td><i class='material-icons delete' style='cursor:pointer'>delete</i></td>" +
+    "<td class='edit' style='cursor:pointer'><i class='material-icons'>edit</i></td>" +
+    "<td class='delete' style='cursor:pointer'><i class='material-icons'>delete</i></td>" +
     "</tr>";
     $("#tabla-eventos").append(elem);
 
 
   }
   //Cuando se selecciona un elemento de la tabla debe mostrarse el modal
-  $(".item-evento").on('click', function(){
+  $(".edit").on('click', function(){
     action = 'update';
-    id= $($(this).children()[0]).val()
+    id= $($(this).parent().children()[0]).val()
     $('#modal1').openModal();
-    $($("#titulo").val($($(this).children()[1]).html()).siblings()[0]).addClass("active");
-    $($("#descripcion").val($($(this).children()[2]).html()).siblings()[0]).addClass("active");
+    $($("#titulo").val($($(this).parent().children()[2]).html()).siblings()[0]).addClass("active");
+    $($("#descripcion").val($($(this).parent().children()[3]).html()).siblings()[0]).addClass("active");
 
-    var f1 = $($(this).children()[3]).html();
+    var f1 = $($(this).parent().children()[4]).html();
     $("#fecha-inicio").val(moment(f1,"DD/MM/YYYY [a las] HH:mm").format("DD/MM/YYYY"));
     $($("#fecha-inicio").siblings("label")[0]).addClass("active");
 
-    var f2 = $($(this).children()[4]).html();
+    var f2 = $($(this).parent().children()[5]).html();
     $("#fecha-fin").val(moment(f2,"DD/MM/YYYY [a las] HH:mm").format("DD/MM/YYYY"));
     $($("#fecha-fin").siblings("label")[0]).addClass("active");
 
@@ -130,13 +133,28 @@ function renderizarEventos(){
     $("#hora-fin").val(moment(f2,"DD/MM/YYYY [a las] HH:mm").format("HH:mm"));
     $($("#hora-fin").siblings("label")[0]).addClass("active");
 
-    $('#tipo').val($($(this).children()[5]).val());
+    $('#tipo').val($($(this).parent().children()[6]).val());
     $('#tipo').material_select();
   });
 
   $(".delete").on('click', function(){
-    console.log($(this));
-  })
+    eliminarIds = [$(this).parent().children()[0].value];
+    $("#delete-message").html("¿Desea eliminar el evento \""+$(this).parent().children()[2].innerHTML+"\"?");
+    dialogDelete();
+  });
+
+  $(".chk").on('change', function(){
+    var arr = $("#tabla-eventos").children();
+    eliminarIds = [];
+    $("#delete-selection").css("display","none");
+    for (var i = 0 ; i < arr.length ; i++){
+      var checked = $($($(arr[i]).children()[1]).children()[0]).context.checked;
+      if (checked){
+        $("#delete-selection").css("display","block");
+        eliminarIds.push($(arr[i]).children()[0].value);
+      }
+    }
+  });
 }
 
 /**
@@ -158,6 +176,7 @@ function definirPaginacion(){
              totalPages: Math.ceil(json.pages/10),
              visiblePages: 5,
              onPageClick: function (event, page) {
+                paginaActiva = page-1;
                  getEvents(page-1);
              }
          });
@@ -167,6 +186,38 @@ function definirPaginacion(){
       },
   });
 
+}
+
+/**
+ * Muestra el diálogo de confirmación para eliminar.
+ */
+function dialogDelete(){
+  $("#deleteModal").openModal();
+}
+
+/**
+ * Función para eliminar eventos de la base de datos.
+ */
+function deleteEvents(){
+  var obj = {
+    action: 'delete',
+    ids: JSON.stringify(eliminarIds)
+  };
+  $.ajax({
+      url : '../controller/eventos.php',
+      data : obj,
+      type : 'POST',
+      dataType : 'json',
+      success : function(json) {
+        console.log(json);
+        getEvents(paginaActiva);
+      },
+      error : function(xhr, status) {
+          Materialize.toast("Hubo un error al procesar su solicitud", 4000, "red");
+      },
+  });
+  getEvents(paginaActiva);
+  $("#deleteModal").closeModal();
 }
 
 /**
@@ -222,6 +273,7 @@ $(document).ready(function(){
    $('#new-event').on('click', function(){
      action = 'create';
      id = null;
+     limpiarCampos();
    });
 
    $('#guardar-evento').on('click', function(){
@@ -260,7 +312,8 @@ $(document).ready(function(){
               // código a ejecutar si la petición es satisfactoria;
               // la respuesta es pasada como argumento a la función
               success : function(json) {
-                  console.log(json);
+                  $("#modal1").closeModal();
+                  getEvents(paginaActiva);
               },
 
               // código a ejecutar si la petición falla;
@@ -281,6 +334,11 @@ $(document).ready(function(){
 
    $(".vald").change(function(){
      $(this).removeClass("invalid");
+   });
+
+   //Manejador del botón de eliminar selección
+   $("#delete-selection").on('click', function(){
+     dialogDelete();
    });
 
    //Se trae el número de hojas y elementos.
