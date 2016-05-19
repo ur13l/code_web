@@ -16,7 +16,7 @@ switch($action){
     $fechaInicio = $_POST['fecha_inicio'];
     $fechaFin = $_POST['fecha_fin'];
     $tipo = $_POST['tipo'];
-    $consulta = "INSERT INTO evento VALUES (0,'$titulo', '$descripcion', '$fechaInicio', '$fechaFin', '$tipo', now())";
+    $consulta = "INSERT INTO evento VALUES (0,'$titulo', '$descripcion', '$fechaInicio', '$fechaFin', '$tipo', now(), 1)";
     mysqli_query($conexion, $consulta);
     echo '{"success":"true"}';
     break;
