@@ -162,6 +162,9 @@ function renderizarEventos(){
  * @return void
  */
 function definirPaginacion(){
+  if($('#pagination-demo').data("twbs-pagination")){
+    $("#pagination-demo").twbsPagination('destroy');
+  }
   var obj = {
     action: 'count'
   };
@@ -174,12 +177,20 @@ function definirPaginacion(){
         //Mostrar paginación
         $('#pagination-demo').twbsPagination({
              totalPages: Math.ceil(json.pages/10),
-             visiblePages: 5,
+             visiblePages: 7,
+             first: "Primera",
+              prev: "Anterior",
+              next: "Siguiente",
+              last: "Última",
              onPageClick: function (event, page) {
                 paginaActiva = page-1;
                  getEvents(page-1);
              }
          });
+         if(paginaActiva >= Math.ceil(json.pages/10)){
+           paginaActiva = Math.ceil(json.pages/10)-1;
+         }
+
       },
       error : function(xhr, status) {
           Materialize.toast("Hubo un error al procesar su solicitud", 4000, "red");
@@ -216,6 +227,7 @@ function deleteEvents(){
           Materialize.toast("Hubo un error al procesar su solicitud", 4000, "red");
       },
   });
+  definirPaginacion();
   getEvents(paginaActiva);
   $("#deleteModal").closeModal();
 }
@@ -314,6 +326,7 @@ $(document).ready(function(){
               success : function(json) {
                   $("#modal1").closeModal();
                   getEvents(paginaActiva);
+                  definirPaginacion();
               },
 
               // código a ejecutar si la petición falla;
@@ -338,8 +351,12 @@ $(document).ready(function(){
 
    //Manejador del botón de eliminar selección
    $("#delete-selection").on('click', function(){
+     $("#delete-message").html("¿Confirma que desea eliminar los eventos seleccionados?");
      dialogDelete();
    });
+
+   //Cambiar el mensaje de la interfaz
+   $(".brand-logo").html("&nbsp Eventos");
 
    //Se trae el número de hojas y elementos.
    definirPaginacion();

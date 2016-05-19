@@ -32,6 +32,7 @@ if (isset($_SESSION['usuario_correo'])) {
   ?>
   <div class="container">
     <div class="row">
+      <img src="../../img/code.png" class="col s9 m6 l3 offset-s2 offset-m3 offset-l4">
       <table class="highlight">
         <thead>
           <tr>

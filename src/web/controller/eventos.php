@@ -35,7 +35,7 @@ switch($action){
   case 'read':
     $page = $_POST['page'];
     $min = $page * 10;
-    $consulta = "SELECT * FROM evento ORDER BY
+    $consulta = "SELECT * FROM evento WHERE estado = 1 ORDER BY
       CASE WHEN fecha_inicio > NOW() THEN 1
            WHEN fecha_inicio < NOW() THEN 2
       END ASC, fecha_inicio LIMIT $min, 10";
@@ -55,7 +55,7 @@ switch($action){
   case 'delete':
     $ids = json_decode($_POST['ids']);
     for($i = 0 ; $i < count($ids) ; $i++){
-      $consulta = "DELETE FROM evento WHERE id_evento = '".$ids[$i]."'";
+      $consulta = "UPDATE evento SET estado=0, fecha_actualizacion=now() WHERE id_evento = '".$ids[$i]."'";
       $result = mysqli_query($conexion, $consulta);
     }
     echo '{"success":"true"}';
