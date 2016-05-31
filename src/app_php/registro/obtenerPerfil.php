@@ -19,7 +19,7 @@
   }
   //En caso de no existir .
   else {
-    echo '{"succes" : "false"}';
+    echo '{"success" : "false"}';
   }
   $conexion->close();
 

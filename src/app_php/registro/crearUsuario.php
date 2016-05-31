@@ -16,10 +16,12 @@
   $glucosa = $_POST["glucosa"];
   $actividad = $_POST["actividad"];
   $animo = $_POST["animo"];
+  $genero = $_POST["genero"];
+  $fec_nacimiento = $_POST["fec_nacimiento"];
 
 
 
-  $consulta = "CALL stp_registrar_usuario('$correo', '$password', '$facebook', '$google','$peso','$estatura','$presion','$glucosa','$actividad','$animo')";
+  $consulta = "CALL stp_registrar_usuario('$correo', '$password', '$facebook', '$google','$peso','$estatura','$presion','$glucosa','$actividad','$animo', '$genero', '$fec_nacimiento')";
   //Se hace la inserción en la tabla login_app
   $result = mysqli_query($conexion, $consulta);
 
