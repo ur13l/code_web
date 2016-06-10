@@ -1,3 +1,3 @@
 archive
 node_modules
-/home/uriel/code_web/src/app_php/conexion/conexion.php
+src/app_php/conexion/conexion.php
