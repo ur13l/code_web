@@ -11,12 +11,12 @@
  */
 function connect(){
 
-	$user = "YOUR_USER";
-	$password = "YOUR_PASSWORD";
-	$dbname = "DB_NAME";
+	$user = "root";
+	$password = "info2000";
+	$dbname = "code_web";
 	$port = 3306;
-	$host = "HOST_IP"; //Ip Externa
-	
+	$host = "10.0.7.40"; //Ip Externa
+
 // Create connection
 	$conn = mysqli_connect($host, $user, $password, $dbname);
 	// Check connection
