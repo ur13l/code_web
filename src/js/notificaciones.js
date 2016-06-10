@@ -232,60 +232,6 @@ function deleteEvents(){
   $("#deleteModal").closeModal();
 }
 
-function guardarEvento(){
-     var emptyTitulo = isEmpty($('#titulo'));
-     var emptyDescripcion = isEmpty($('#descripcion'));
-     var emptyFInicio = isEmpty($('#fecha-inicio'));
-     var emptyFFin = isEmpty($('#fecha-fin'));
-     var emptyHInicio = isEmpty($('#hora-inicio'));
-     var emptyHFin = isEmpty($('#hora-fin'));
-     if( !emptyTitulo && !emptyDescripcion && !emptyFInicio && !emptyFFin && !emptyHInicio && !emptyHFin ){
-       if(compararFechas($("#fecha-inicio"), $("#hora-inicio"), $("#fecha-fin"), $("#hora-fin"))){
-         // Se arma el objeto a enviar
-         var obj = {
-           titulo: $('#titulo').val(),
-           descripcion: $('#descripcion').val(),
-           fecha_inicio: moment($("#fecha-inicio").val() +" "+ $("#hora-inicio").val(), "DD/MM/YYYY HH:mm").format("YYYY-MM-DD HH:mm"),
-           fecha_fin: moment($("#fecha-fin").val() +" "+ $("#hora-fin").val(), "DD/MM/YYYY HH:mm").format("YYYY-MM-DD HH:mm"),
-           tipo: $("#tipo option:selected").val(),
-           action: action,
-           id: id
-         };
-         $.ajax({
-             // la URL para la petición
-             url : '../controller/eventos.php',
-
-             // la información a enviar
-             // (también es posible utilizar una cadena de datos)
-             data : obj,
-
-             // especifica si será una petición POST o GET
-             type : 'POST',
-
-             // el tipo de información que se espera de respuesta
-             dataType : 'json',
-
-             // código a ejecutar si la petición es satisfactoria;
-             // la respuesta es pasada como argumento a la función
-             success : function(json) {
-                 $("#modal1").closeModal();
-                 getEvents(paginaActiva);
-                 definirPaginacion();
-             },
-
-             // código a ejecutar si la petición falla;
-             // son pasados como argumentos a la función
-             // el objeto de la petición en crudo y código de estatus de la petición
-             error : function(xhr, status) {
-                 alert('Disculpe, existió un problema');
-             },
-
-         });
-       }
-     }
-
-}
-
 /**
  * Limpia los campos de la ventana modal de nuevo/modificar evento
  * @return void
@@ -302,6 +248,7 @@ function limpiarCampos(){
 }
 
 $(document).ready(function(){
+
   //Configuración para generar el SideNav
   $(".button-collapse").sideNav();
 
@@ -335,34 +282,7 @@ $(document).ready(function(){
   //Necesario para sustituir el select común de HTML5 por el de Materialize
    $('select').material_select();
 
-  //Se ejecuta al darle click al botón de más, permite configurar la acción a 'create'
-   $('#new-event').on('click', function(){
-     action = 'create';
-     id = null;
-     limpiarCampos();
-   });
 
-   $('#guardar-evento').on('click', guardarEvento);
 
-   // for HTML5 "required" attribute
-   $("select[required]").css({display: "inline", height: 0, padding: 0, width: 0});
-
-   $(".vald").change(function(){
-     $(this).removeClass("invalid");
-   });
-
-   //Manejador del botón de eliminar selección
-   $("#delete-selection").on('click', function(){
-     $("#delete-message").html("¿Confirma que desea eliminar los eventos seleccionados?");
-     dialogDelete();
-   });
-
-   //Cambiar el mensaje de la interfaz
-   $(".brand-logo").html("&nbsp Eventos");
-
-   //Se trae el número de hojas y elementos.
-   definirPaginacion();
-    //Llamar a la primera página de eventos cuando se inicializa.
-    getEvents(paginaActiva);
 
 });

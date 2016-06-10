@@ -47,7 +47,9 @@
 
 
     $message = array(
-      "message" => "La vida es un riesgo ese"
+      "title" => "MARIO",
+      "message" => "Saca las pizzas",
+      "time" => "16:41"
       );
       $message_status = sendNotification($tokens, $message);
       echo $message_status;
