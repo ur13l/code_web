@@ -3,12 +3,12 @@
     function sendNotification($tokens, $message){
       $url = "https://fcm.googleapis.com/fcm/send";
       $fields = array(
-        'to' => $tokens,
+        'registration_ids' => $tokens,
         'data' => $message,
 
       );
       $headers = array(
-  			'Authorization:key = AIzaSyBF-XCee0L-3ma4OdPtu9Y4BfEVX9R2_JM ',
+  			'Authorization:key = AIzaSyCP6sP-BhfEgXrQoNGxBWJW_EKxc6gD0ro ',
   			'Content-Type: application/json'
 			);
 
