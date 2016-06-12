@@ -32,25 +32,5 @@
 
     }
 
-    include("../conexion/conexion.php");
-    $conexion = connect();
-     $query = "SELECT token FROM login_token;";
-     $result = mysqli_query($conexion, $query);
-     $tokens = array();
-
-     if (mysqli_num_rows($result) > 0){
-        while ($row = mysqli_fetch_array($result)){
-           $tokens[] = $row["token"];
-        }
-     }
-    $conexion->close();
-
-
-    $message = array(
-      "title" => "MARIO",
-      "message" => "Saca las pizzas",
-      "time" => "16:41"
-      );
-      $message_status = sendNotification($tokens, $message);
-      echo $message_status;
+    
  ?>

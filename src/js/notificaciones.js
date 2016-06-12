@@ -16,6 +16,7 @@ function isEmpty(input){
     }
     else {
       input.addClass("invalid");
+      return true;
     }
 }
 
@@ -33,32 +34,6 @@ function noOpcion(select){
   }
 }
 
-/**
- * Compara si la primera fecha es menor a la segunda.
- * @param  inputF1: Fecha de inicio
- * @param  inputH1: Hora de inicio
- * @param  inputF2: Fecha de finalización
- * @param  inputH2: Hora de finalización
- * @return {Boolean} true si las fechas son válidas, false de lo contrario
- */
-function compararFechas(inputF1, inputH1, inputF2, inputH2){
-    var fInicio = inputF1.val();
-    var hInicio = inputH1.val();
-    var fFin = inputF2.val();
-    var hFin = inputH2.val();
-
-
-    var f1 = moment(fInicio + " " + hInicio, "DD/MM/YYYY HH:mm");
-    var f2 = moment(fFin + " " + hFin, "DD/MM/YYYY HH:mm");
-
-    if (f1.isAfter(f2)){
-      inputF2.addClass("invalid");
-      inputH2.addClass("invalid");
-        Materialize.toast('La fecha de inicio no puede ser posterior a la de finalización', 4000,'red')
-    }
-
-    return(f2.isAfter(f1));
-}
 
 /**
  * Llamada AJAX que devuelve los eventos de una página
@@ -111,6 +86,7 @@ function renderizarEventos(){
 
 
   }
+
   //Cuando se selecciona un elemento de la tabla debe mostrarse el modal
   $(".edit").on('click', function(){
     action = 'update';
@@ -232,6 +208,94 @@ function deleteEvents(){
   $("#deleteModal").closeModal();
 }
 
+function validacionesModal(){
+  $("#chk_hombre").change(function(){
+    if(!$(this).is(":checked")){
+      if(!$("#chk_mujer").is(":checked")){
+        $("#chk_mujer").prop("checked", true);
+      }
+    }
+  });
+
+  $("#chk_mujer").change(function(){
+    if(!$(this).is(":checked")){
+      if(!$("#chk_hombre").is(":checked")){
+        $("#chk_hombre").prop("checked", true);
+      }
+    }
+  });
+
+  $("#chk_android").change(function(){
+    if(!$(this).is(":checked")){
+      if(!$("#chk_ios").is(":checked")){
+        $("#chk_ios").prop("checked", true);
+      }
+    }
+  });
+
+  $("#chk_ios").change(function(){
+    if(!$(this).is(":checked")){
+      if(!$("#chk_android").is(":checked")){
+        $("#chk_android").prop("checked", true);
+      }
+    }
+  });
+
+  $("#sl_rango_edad").change(function(){
+    console.log("LOL");
+     if(this.value > 1){
+       $("#txt_age1").css("display", "inline");
+       $("#label_age").css("display", "inline");
+       $("#txt_age2").css("display", "none");
+     }
+
+     if(this.value == 2){
+      $("#txt_age2").css("display", "inline");
+     }
+
+     if(this.value == 1){
+      $("#txt_age1").css("display", "none");
+      $("#txt_age2").css("display", "none");
+      $("#label_age").css("display", "none");
+
+     }
+  });
+}
+
+function newNotification(){
+  var obj = {
+    action: 'create',
+    titulo: $("#titulo").val(),
+    mensaje: $("#mensaje").val(),
+    schedule: $("#chk_schedule").is(":checked"),
+    fecha: $("#fecha").val(),
+    hora: $("#hora").val(),
+    hombre: $("#chk_hombre").is(":checked"),
+    mujer: $("#chk_mujer").is(":checked"),
+    presion: $("#chk_presion").is(":checked"),
+    glucosa: $("#chk_glucosa").is(":checked"),
+    rango: $("#sl_rango_edad").val(),
+    age1: $("#txt_age1").val(),
+    age2: $("#txt_age2").val(),
+    android: $("#chk_android").is(":checked"),
+    ios: $("#chk_ios").is(":checked")
+  };
+
+  $.ajax({
+      url : '../controller/notificaciones.php',
+      data : obj,
+      type : 'POST',
+      dataType : 'json',
+      success : function(json) {
+        console.log(json);
+      },
+      error : function(xhr, status) {
+          Materialize.toast("Hubo un error al procesar su solicitud", 4000, "red");
+      },
+  });
+
+}
+
 /**
  * Limpia los campos de la ventana modal de nuevo/modificar evento
  * @return void
@@ -282,7 +346,16 @@ $(document).ready(function(){
   //Necesario para sustituir el select común de HTML5 por el de Materialize
    $('select').material_select();
 
+   validacionesModal();
 
-
-
+   $("#enviar").on('click', function(){
+     var tituloEmpty = isEmpty($("#titulo"));
+     var mensajeEmpty = isEmpty($("#mensaje"));
+     if(!tituloEmpty && !mensajeEmpty){
+       newNotification();
+     }
+     else{
+       console.log("WOW");
+     }
+   });
 });

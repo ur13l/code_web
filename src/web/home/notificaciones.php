@@ -23,28 +23,29 @@ if (isset($_SESSION['usuario_correo'])) {
   <script type="text/javascript" src="../../js/moment.js"></script>
   <script type="text/javascript" src="../../js/toastr.min.js"></script>
   <script type="text/javascript" src="../../js/jquery.twbsPagination.min.js"></script>
-  <script type="text/javascript" src="../../js/eventos.js"> </script>
+  <script type="text/javascript" src="../../js/notificaciones.js"> </script>
 
 </head>
-<body>
+<body style="background:#f1f1f1">
   <?php
   include("../defines/nav.php");
   ?>
-  <div class="container">
+  <div class="container" style="background:white;  padding:30px; margin-top:50px">
     <div class="row">
       <img src="../../img/code.png" class="col s9 m6 l3 offset-s2 offset-m3 offset-l4">
     </div>
     <div class="row">
-        <h4 class="center">Nueva notificación</h4>
-        <div class="input-field col s6">
+        <h5>Nueva notificación</h5>
+        <div class="input-field col s12">
             <input placeholder="Título" id="titulo" type="text" class="validate">
             <label for="titulo">Título</label>
         </div>
         <div class="input-field col s12">
-            <textarea id="mensajes" class="materialize-textarea"></textarea>
+            <textarea id="mensaje" class="materialize-textarea"></textarea>
             <label for="mensaje">Mensaje</label>
       </div>
       </div>
+      <!--
       <div class="row">
         <div class="input-field col s2">
           <input type="checkbox" id="chk_schedule" />
@@ -59,9 +60,10 @@ if (isset($_SESSION['usuario_correo'])) {
           <label for="hora">Hora</label>
         </div>
       </div>
+      -->
       <div class="row right">
-        <a class="waves-effect waves-light btn modal-trigger "><i class="material-icons left">settings</i>Configurar Destinatarios</a>
-        <a class="waves-effect waves-light btn"><i class="material-icons left">send</i>Enviar</a>
+        <a class="waves-effect waves-light btn modal-trigger " href="#modal1"><i class="material-icons left">settings</i>Configurar Destinatarios</a>
+        <a class="waves-effect waves-light btn" id="enviar"><i class="material-icons left">send</i>Enviar</a>
 
       </div>
 
@@ -95,37 +97,66 @@ if (isset($_SESSION['usuario_correo'])) {
         <h4>Personalizar destinatarios</h4>
         <p>
           <div class="row">
-            <form class="col s12">
+            <h6 class="col s12"> Por género </h6>
+            <div class="input-field col s4">
+              <input type="checkbox" id="chk_hombre" checked>
+              <label for="chk_hombre">Hombres</label>
+            </div>
+            <div class="input-field col s4">
+              <input type="checkbox" id="chk_mujer" checked>
+              <label for="chk_mujer">Mujeres</label>
+            </div>
+          </div>
+          <div class="row">
+            <h6 class="col s12"> Condiciones especiales </h6>
+            <div class="input-field col s4">
+              <input type="checkbox" id="chk_presion" checked>
+              <label for="chk_presion">Presión elevada</label>
+            </div>
+            <div class="input-field col s4">
+              <input type="checkbox" id="chk_glucosa" checked>
+              <label for="chk_glucosa">Glucosa elevada</label>
+            </div>
+          </div>
+          <div class="row">
+            <h6 class="col s12"> Por rango de edad </h6>
+            <div class="input-field col s5">
+              <select required id="sl_rango_edad" class="validate">
+                <option value="" disabled>Elige una opción</option>
+                <option value="1" selected>Todos</option>
+                <option value="2">Entre</option>
+                <option value="3">Mayores de </option>
+                <option value="4">Menores de </option>
+              </select>
+            </div>
 
-            </form>
+            <div class="input-field col s2">
+              <input type="number" id="txt_age1" style="display:none" name="name" value="">
+            </div>
+            <div class="input-field col s2">
+              <input type="number" id="txt_age2" style="display:none" name="name" value="">
+            </div>
+            <p class="col s2" id="label_age" style="display:none"> años </p>
+          </div>
+          <div class="row">
+            <h6 class="col s12"> Sistema operativo </h6>
+            <div class="input-field col s4">
+              <input type="checkbox" id="chk_android" checked>
+              <label for="chk_android">Android</label>
+            </div>
+            <div class="input-field col s4">
+              <input type="checkbox" id="chk_ios" checked>
+              <label for="chk_ios">iOS</label>
+            </div>
           </div>
         </p>
       </div>
       <div class="modal-footer">
-        <a href="#!" class=" modal-action waves-effect waves-green btn-flat" id="guardar-evento">Guardar</a>
-        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
       </div>
     </div>
-    <div id="deleteModal" class="modal">
-        <div class="modal-content">
-            <h4>Confirmar</h4>
-            <p id="delete-message">¿Desea eliminar el evento seleccionado?</p>
-        </div>
-        <div class="modal-footer">
-            <a href="#" class="waves-effect waves-red btn-flat" onclick="$('#md1').closeModal(); return false;">Cancelar</a>
-            <a href="#" class="waves-effect waves-green btn-flat" onclick="deleteEvents()" id="md1_YesBtn">Sí</a>
-       </div>
-    </div>
+
   </div>
-<div class="fixed-action-btn" style="bottom: 10px; right: 24px;">
-  <a href="#modal1" class="btn-floating btn-large waves-effect waves-light red btn" >
-    <i class="material-icons" id="new-event">add</i>
-  </a>
-</div>
-<div class="fixed-action-btn" id="delete-selection" style="display:none; bottom: 10px; right: 100px;">
-  <a class="btn-floating btn-large waves-effect waves-light red btn" >
-    <i class="material-icons" id="new-event">delete</i>
-  </a>
-</div>
+
 </body>
 </html>
