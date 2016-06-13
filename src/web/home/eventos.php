@@ -11,8 +11,8 @@ if (isset($_SESSION['usuario_correo'])) {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Login</title>
-  <link rel="stylesheet" href="../../materialize/css/materialize.min.css">
+  <title>Eventos</title>
+  <link rel="stylesheet" href="../../materialize/css/materialize.css">
   <link rel="stylesheet" href="../../css/style.css">
   <link rel="stylesheet" href="../../css/lolliclock.css">
   <link rel="stylesheet" href="../../css/toastr.min.css">
@@ -26,11 +26,11 @@ if (isset($_SESSION['usuario_correo'])) {
   <script type="text/javascript" src="../../js/eventos.js"> </script>
 
 </head>
-<body>
+<body style="background:#f1f1f1">
   <?php
   include("../defines/nav.php");
   ?>
-  <div class="container">
+  <div class="container" style="background:white;  padding:50px; margin-top:50px">
     <div class="row">
       <img src="../../img/code.png" class="col s9 m6 l3 offset-s2 offset-m3 offset-l4">
       <table class="highlight">
@@ -125,16 +125,17 @@ if (isset($_SESSION['usuario_correo'])) {
             <a href="#" class="waves-effect waves-green btn-flat" onclick="deleteEvents()" id="md1_YesBtn">Sí</a>
        </div>
     </div>
+    <div class="fixed-action-btn" style="bottom: 10px; right: 24px;">
+      <a href="#modal1" class="btn-floating btn-large waves-effect waves-light green-code btn modal-trigger" >
+        <i class="material-icons" id="new-event">add</i>
+      </a>
+    </div>
+    <div class="fixed-action-btn" id="delete-selection" style="display:none; bottom: 10px; right: 100px;">
+      <a class="btn-floating btn-large waves-effect waves-light green-code btn" >
+        <i class="material-icons" id="new-event">delete</i>
+      </a>
+    </div>
   </div>
-<div class="fixed-action-btn" style="bottom: 10px; right: 24px;">
-  <a href="#modal1" class="btn-floating btn-large waves-effect waves-light red btn modal-trigger" >
-    <i class="material-icons" id="new-event">add</i>
-  </a>
-</div>
-<div class="fixed-action-btn" id="delete-selection" style="display:none; bottom: 10px; right: 100px;">
-  <a class="btn-floating btn-large waves-effect waves-light red btn" >
-    <i class="material-icons" id="new-event">delete</i>
-  </a>
-</div>
+
 </body>
 </html>

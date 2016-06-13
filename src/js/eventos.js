@@ -98,7 +98,7 @@ function renderizarEventos(){
 
     var elem = "<tr  class='item-evento'>" +
     "<input type='hidden' value='"+eventos[i].id_evento+"'>" +
-    "<td> <input type='checkbox' id='chk"+eventos[i].id_evento+"' class='filled-in chk'/>  <label for='chk"+eventos[i].id_evento+"'></label></td>" +
+    "<td> <input type='checkbox' id='chk"+eventos[i].id_evento+"' class='filled-in chk checkbox-green-code'/>  <label for='chk"+eventos[i].id_evento+"'></label></td>" +
     "<td>"+eventos[i].titulo+"</td>" +
     "<td>"+eventos[i].descripcion+"</td>" +
     "<td>"+fInicio+"</td>" +
@@ -175,6 +175,7 @@ function definirPaginacion(){
       dataType : 'json',
       success : function(json) {
         //Mostrar paginación
+        console.log("PAGES" + json.pages);
         $('#pagination-demo').twbsPagination({
              totalPages: Math.ceil(json.pages/10),
              visiblePages: 7,

@@ -65,3 +65,40 @@ bottom: 0%;
 top: 90%;
 right: 0%;
 left: 0%; } }
+
+
+
+.blue-code{
+  background-color: #126fb7 !important;
+}
+
+.green-code{
+  background-color: #8dc63f !important;
+}
+
+.green-code-text{
+  color: #8dc63f !important;
+}
+
+.blue-code-text{
+  color: #126fb7 !important;
+}
+
+.checkbox-green-code[type="checkbox"].filled-in:checked + label:after{
+     border: 2px solid #8dc63f;
+     background-color: #8dc63f;
+}
+
+.input-field input[type=text]:focus + label { color:  #8dc63f; } /* label underline focus color */
+.input-field input[type=text]:focus { border-bottom: 1px solid  #8dc63f; box-shadow: 0 1px 0 0  #8dc63f; }
+
+
+textarea + label[data-error]:after {
+  white-space: nowrap;
+  font-size: 12px;
+  margin-top:15px;
+}
+
+li.page.active{
+  background-color: #8dc63f !important;
+}

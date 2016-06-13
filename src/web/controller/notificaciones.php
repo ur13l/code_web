@@ -57,10 +57,13 @@ if($ios != "true"){
   $where .= "AND lt.os != 2 ";
 }
 
+
+$consulta = "SET NAMES UTF8";
+mysqli_query($conexion, $consulta);
+
 $query = "SELECT lt.token FROM login_token lt, datos_perfil dp, datos_complementarios_perfil dcp WHERE lt.id_login_app = dp.id_login_app
 AND dp.id_login_app = dcp.id_login_app AND lt.id_login_app = dcp.id_login_app " . $where;
 
-echo $query;
 $result = mysqli_query($conexion, $query);
 $tokens = array();
 
@@ -69,7 +72,6 @@ if (mysqli_num_rows($result) > 0){
       $tokens[] = $row["token"];
    }
 }
-$conexion->close();
 
 
 $message = array(
@@ -77,5 +79,12 @@ $message = array(
  "message" => $mensaje
  );
  $message_status = sendNotification($tokens, $message);
- echo $message_status;
+ if(isset($message_status)){
+   $success = array("success" => "true");
+   $query = "INSERT INTO notificacion VALUES (0, '$titulo', '$mensaje', now())";
+   $result = mysqli_query($conexion, $query);
+   echo json_encode($success);
+ }
+ $conexion->close();
+
 ?>

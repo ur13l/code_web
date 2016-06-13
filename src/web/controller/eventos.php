@@ -47,7 +47,7 @@ switch($action){
     echo json_encode($arr);
   break;
   case 'count':
-    $consulta = "SELECT COUNT(id_evento) as pages FROM evento";
+    $consulta = "SELECT COUNT(id_evento) as pages FROM evento WHERE estado=1";
     $result = mysqli_query($conexion, $consulta);
     $row = mysqli_fetch_array($result);
     echo json_encode($row);

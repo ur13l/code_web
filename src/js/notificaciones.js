@@ -1,6 +1,6 @@
 var action;
 var id;
-var eventos;
+var notificaciones;
 var paginaActiva = 0;
 var eliminarIds;
 
@@ -16,6 +16,7 @@ function isEmpty(input){
     }
     else {
       input.addClass("invalid");
+
       return true;
     }
 }
@@ -40,21 +41,21 @@ function noOpcion(select){
  * @param  int page: Número de página (Comienza en 0)
  * @return void
  */
-function getEvents(page){
+function getNotifications(page){
   var obj = {
-    page: page,
-    action: 'read'
+    page: page
   };
   $.ajax({
-      url : '../controller/eventos.php',
+      url : '../controller/readNotifications.php',
       data : obj,
       type : 'POST',
       dataType : 'json',
       success : function(json) {
-          eventos = json;
-          renderizarEventos();
+          notificaciones = json;
+          //renderizarEventos();
       },
       error : function(xhr, status) {
+        console.log(xhr);
           Materialize.toast("Hubo un error al procesar su solicitud", 4000, "red");
       },
 
@@ -141,12 +142,8 @@ function definirPaginacion(){
   if($('#pagination-demo').data("twbs-pagination")){
     $("#pagination-demo").twbsPagination('destroy');
   }
-  var obj = {
-    action: 'count'
-  };
   $.ajax({
-      url : '../controller/eventos.php',
-      data : obj,
+      url : '../controller/paginacionNotificaciones.php',
       type : 'POST',
       dataType : 'json',
       success : function(json) {
@@ -160,7 +157,7 @@ function definirPaginacion(){
               last: "Última",
              onPageClick: function (event, page) {
                 paginaActiva = page-1;
-                 getEvents(page-1);
+                 getNotifications(page-1);
              }
          });
          if(paginaActiva >= Math.ceil(json.pages/10)){
@@ -287,7 +284,8 @@ function newNotification(){
       type : 'POST',
       dataType : 'json',
       success : function(json) {
-        console.log(json);
+        Materialize.toast("Mensaje entregado con éxito", 4000, "green");
+        limpiarCampos()
       },
       error : function(xhr, status) {
           Materialize.toast("Hubo un error al procesar su solicitud", 4000, "red");
@@ -302,13 +300,7 @@ function newNotification(){
  */
 function limpiarCampos(){
   $("#titulo").val("");
-  $("#descripcion").val("");
-  $("#fecha-inicio").val("");
-  $("#hora-inicio").val("");
-  $("#fecha-fin").val("");
-  $("#hora-fin").val("");
-  $('#tipo').val("1");
-  $('#tipo').material_select();
+  $("#mensaje").val("");
 }
 
 $(document).ready(function(){
@@ -346,6 +338,14 @@ $(document).ready(function(){
   //Necesario para sustituir el select común de HTML5 por el de Materialize
    $('select').material_select();
 
+   $('#titulo').on("focus", function(){
+     $(this).removeClass("invalid");
+   });
+
+   $('#mensaje').on("focus", function(){
+     $(this).removeClass("invalid");
+   });
+
    validacionesModal();
 
    $("#enviar").on('click', function(){
@@ -354,8 +354,9 @@ $(document).ready(function(){
      if(!tituloEmpty && !mensajeEmpty){
        newNotification();
      }
-     else{
-       console.log("WOW");
-     }
    });
+
+   definirPaginacion();
+
+   getNotifications(paginaActiva);
 });

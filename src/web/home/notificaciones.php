@@ -12,7 +12,7 @@ if (isset($_SESSION['usuario_correo'])) {
 <head>
   <meta charset="UTF-8">
   <title>Notificaciones</title>
-  <link rel="stylesheet" href="../../materialize/css/materialize.min.css">
+  <link rel="stylesheet" href="../../materialize/css/materialize.css">
   <link rel="stylesheet" href="../../css/style.css">
   <link rel="stylesheet" href="../../css/lolliclock.css">
   <link rel="stylesheet" href="../../css/toastr.min.css">
@@ -38,11 +38,11 @@ if (isset($_SESSION['usuario_correo'])) {
         <h5>Nueva notificación</h5>
         <div class="input-field col s12">
             <input placeholder="Título" id="titulo" type="text" class="validate">
-            <label for="titulo">Título</label>
+            <label for="titulo" data-error="Este campo es obligatorio">Título</label>
         </div>
         <div class="input-field col s12">
-            <textarea id="mensaje" class="materialize-textarea"></textarea>
-            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" class="materialize-textarea "></textarea>
+            <label for="mensaje" data-error="Este campo es obligatorio">Mensaje</label>
       </div>
       </div>
       <!--
@@ -62,22 +62,20 @@ if (isset($_SESSION['usuario_correo'])) {
       </div>
       -->
       <div class="row right">
-        <a class="waves-effect waves-light btn modal-trigger " href="#modal1"><i class="material-icons left">settings</i>Configurar Destinatarios</a>
-        <a class="waves-effect waves-light btn" id="enviar"><i class="material-icons left">send</i>Enviar</a>
+        <a class="waves-effect waves-light btn modal-trigger green-code" href="#modal1"><i class="material-icons left">settings</i>Configurar Destinatarios</a>
+        <a class="waves-effect waves-light btn green-code" id="enviar"><i class="material-icons left">send</i>Enviar</a>
 
       </div>
-
-
+      <div class="row" style="margin-top:110px">
+      <h5 class="col s12">Notificaciones enviadas</h5>
 
       <table class="highlight">
         <thead>
           <tr>
             <th data-field="check"></th>
             <th data-field="titulo">Título</th>
-            <th data-field="descripcion">Descripción</th>
-            <th data-field="fecha_inicio">Inicia</th>
-            <th data-field="fecha_fin">Termina</th>
-            <th data-field="editar">Editar</th>
+            <th data-field="mensaje">Mensaje</th>
+            <th data-field="fecha">Fecha</th>
             <th data-field="eliminar">Eliminar</th>
 
           </tr>
@@ -88,40 +86,41 @@ if (isset($_SESSION['usuario_correo'])) {
         </tbody>
       </table>
     </div>
-
+</div>
 <ul id="pagination-demo" class="pagination-sm"></ul>
-
+<div class="row">
     <!-- Modal Structure -->
-    <div id="modal1" class="modal">
+    <div id="modal1" class="modal col s12 m8 l4 offset-m2 offset-l4">
+
       <div class="modal-content">
-        <h4>Personalizar destinatarios</h4>
+        <h4 class="blue-code-text">Personalizar destinatarios</h4>
         <p>
           <div class="row">
             <h6 class="col s12"> Por género </h6>
-            <div class="input-field col s4">
-              <input type="checkbox" id="chk_hombre" checked>
+            <div class="input-field col s6">
+              <input type="checkbox" id="chk_hombre" class="filled-in checkbox-green-code" checked>
               <label for="chk_hombre">Hombres</label>
             </div>
-            <div class="input-field col s4">
-              <input type="checkbox" id="chk_mujer" checked>
+            <div class="input-field col s6">
+              <input type="checkbox" id="chk_mujer" class="filled-in checkbox-green-code" checked>
               <label for="chk_mujer">Mujeres</label>
             </div>
           </div>
           <div class="row">
             <h6 class="col s12"> Condiciones especiales </h6>
-            <div class="input-field col s4">
-              <input type="checkbox" id="chk_presion" checked>
+            <div class="input-field col s6">
+              <input type="checkbox" id="chk_presion" class="filled-in checkbox-green-code" checked>
               <label for="chk_presion">Presión elevada</label>
             </div>
-            <div class="input-field col s4">
-              <input type="checkbox" id="chk_glucosa" checked>
+            <div class="input-field col s6">
+              <input type="checkbox" id="chk_glucosa" class="filled-in checkbox-green-code" checked>
               <label for="chk_glucosa">Glucosa elevada</label>
             </div>
           </div>
           <div class="row">
             <h6 class="col s12"> Por rango de edad </h6>
             <div class="input-field col s5">
-              <select required id="sl_rango_edad" class="validate">
+              <select required id="sl_rango_edad" class="validate blue-code-text">
                 <option value="" disabled>Elige una opción</option>
                 <option value="1" selected>Todos</option>
                 <option value="2">Entre</option>
@@ -140,12 +139,12 @@ if (isset($_SESSION['usuario_correo'])) {
           </div>
           <div class="row">
             <h6 class="col s12"> Sistema operativo </h6>
-            <div class="input-field col s4">
-              <input type="checkbox" id="chk_android" checked>
+            <div class="input-field col s6">
+              <input type="checkbox" id="chk_android" class="filled-in checkbox-green-code" checked>
               <label for="chk_android">Android</label>
             </div>
-            <div class="input-field col s4">
-              <input type="checkbox" id="chk_ios" checked>
+            <div class="input-field col s6">
+              <input type="checkbox" id="chk_ios" class="filled-in checkbox-green-code" checked>
               <label for="chk_ios">iOS</label>
             </div>
           </div>
@@ -154,6 +153,7 @@ if (isset($_SESSION['usuario_correo'])) {
       <div class="modal-footer">
         <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
       </div>
+    </div>
     </div>
 
   </div>

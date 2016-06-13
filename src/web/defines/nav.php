@@ -1,6 +1,6 @@
 <?php
 echo '<nav>
-  <div class="nav-wrapper blue">
+  <div class="nav-wrapper blue-code">
     <a href="#" class="brand-logo">&nbspActívate CODE</a>
     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 
