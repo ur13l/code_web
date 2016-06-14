@@ -81,13 +81,14 @@ if (isset($_SESSION['usuario_correo'])) {
           </tr>
         </thead>
 
-        <tbody id="tabla-eventos">
+        <tbody id="tabla-notificaciones">
 
         </tbody>
       </table>
     </div>
+    <ul id="pagination-demo" class="pagination-sm"></ul>
 </div>
-<ul id="pagination-demo" class="pagination-sm"></ul>
+
 <div class="row">
     <!-- Modal Structure -->
     <div id="modal1" class="modal col s12 m8 l4 offset-m2 offset-l4">
@@ -152,10 +153,26 @@ if (isset($_SESSION['usuario_correo'])) {
       </div>
       <div class="modal-footer">
         <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
-      </div>
-    </div>
-    </div>
 
+    </div>
+    </div>
+  </div>
+  <div id="deleteModal" class="modal">
+      <div class="modal-content">
+          <h4>Confirmar</h4>
+          <p id="delete-message">¿Desea eliminar el evento seleccionado?</p>
+      </div>
+      <div class="modal-footer">
+          <a href="#" class="waves-effect waves-green btn-flat" onclick="$('#deleteModal').closeModal(); return false;">Cancelar</a>
+          <a href="#" class="waves-effect waves-green btn-flat" onclick="deleteNotifications()" id="md1_YesBtn">Sí</a>
+     </div>
+  </div>
+  
+  <div class="fixed-action-btn" id="delete-selection" style="display:none; bottom: 10px; right: 100px;">
+    <a class="btn-floating btn-large waves-effect waves-light green-code btn" >
+      <i class="material-icons" id="new-event">delete</i>
+    </a>
+  </div>
   </div>
 
 </body>

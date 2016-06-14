@@ -52,7 +52,7 @@ function getNotifications(page){
       dataType : 'json',
       success : function(json) {
           notificaciones = json;
-          //renderizarEventos();
+          renderizarNotificaciones();
       },
       error : function(xhr, status) {
         console.log(xhr);
@@ -66,53 +66,23 @@ function getNotifications(page){
  * Función para mostrar los campos de los eventos.
  * @return {[type]} [description]
  */
-function renderizarEventos(){
-  $("#tabla-eventos").html("");
-  for (var i = 0 ; i < eventos.length; i++){
-    var fInicio = moment(eventos[i].fecha_inicio, "YYYY-MM-DD HH:mm:ss").format("DD/MM/YYYY [a las] HH:mm");
-    var fFin = moment(eventos[i].fecha_fin, "YYYY-MM-DD HH:mm:ss").format("DD/MM/YYYY [a las] HH:mm");
+function renderizarNotificaciones(){
+  $("#tabla-notificaciones").html("");
+  for (var i = 0 ; i < notificaciones.length; i++){
+    var fInicio = moment(notificaciones[i].fecha_emision, "YYYY-MM-DD HH:mm:ss").format("DD/MM/YYYY HH:mm");
 
-    var elem = "<tr  class='item-evento'>" +
-    "<input type='hidden' value='"+eventos[i].id_evento+"'>" +
-    "<td> <input type='checkbox' id='chk"+eventos[i].id_evento+"' class='filled-in chk'/>  <label for='chk"+eventos[i].id_evento+"'></label></td>" +
-    "<td>"+eventos[i].titulo+"</td>" +
-    "<td>"+eventos[i].descripcion+"</td>" +
+    var elem = "<tr  class='item-notificacion'>" +
+    "<input type='hidden' value='"+notificaciones[i].id_notificacion+"'>" +
+    "<td> <input type='checkbox' id='chk"+notificaciones[i].id_notificacion+"' class='filled-in checkbox-green-code chk'/>  <label for='chk"+notificaciones[i].id_notificacion+"'></label></td>" +
+    "<td>"+notificaciones[i].titulo+"</td>" +
+    "<td>"+notificaciones[i].mensaje+"</td>" +
     "<td>"+fInicio+"</td>" +
-    "<td>"+fFin+"</td>" +
-    "<input type='hidden' value='"+eventos[i].tipo+"'>" +
-    "<td class='edit' style='cursor:pointer'><i class='material-icons'>edit</i></td>" +
     "<td class='delete' style='cursor:pointer'><i class='material-icons'>delete</i></td>" +
     "</tr>";
-    $("#tabla-eventos").append(elem);
+    $("#tabla-notificaciones").append(elem);
 
 
   }
-
-  //Cuando se selecciona un elemento de la tabla debe mostrarse el modal
-  $(".edit").on('click', function(){
-    action = 'update';
-    id= $($(this).parent().children()[0]).val()
-    $('#modal1').openModal();
-    $($("#titulo").val($($(this).parent().children()[2]).html()).siblings()[0]).addClass("active");
-    $($("#descripcion").val($($(this).parent().children()[3]).html()).siblings()[0]).addClass("active");
-
-    var f1 = $($(this).parent().children()[4]).html();
-    $("#fecha-inicio").val(moment(f1,"DD/MM/YYYY [a las] HH:mm").format("DD/MM/YYYY"));
-    $($("#fecha-inicio").siblings("label")[0]).addClass("active");
-
-    var f2 = $($(this).parent().children()[5]).html();
-    $("#fecha-fin").val(moment(f2,"DD/MM/YYYY [a las] HH:mm").format("DD/MM/YYYY"));
-    $($("#fecha-fin").siblings("label")[0]).addClass("active");
-
-    $("#hora-inicio").val(moment(f1,"DD/MM/YYYY [a las] HH:mm").format("HH:mm"));
-    $($("#hora-inicio").siblings("label")[0]).addClass("active");
-
-    $("#hora-fin").val(moment(f2,"DD/MM/YYYY [a las] HH:mm").format("HH:mm"));
-    $($("#hora-fin").siblings("label")[0]).addClass("active");
-
-    $('#tipo').val($($(this).parent().children()[6]).val());
-    $('#tipo').material_select();
-  });
 
   $(".delete").on('click', function(){
     eliminarIds = [$(this).parent().children()[0].value];
@@ -121,7 +91,7 @@ function renderizarEventos(){
   });
 
   $(".chk").on('change', function(){
-    var arr = $("#tabla-eventos").children();
+    var arr = $("#tabla-notificaciones").children();
     eliminarIds = [];
     $("#delete-selection").css("display","none");
     for (var i = 0 ; i < arr.length ; i++){
@@ -182,19 +152,19 @@ function dialogDelete(){
 /**
  * Función para eliminar eventos de la base de datos.
  */
-function deleteEvents(){
+function deleteNotifications(){
   var obj = {
-    action: 'delete',
     ids: JSON.stringify(eliminarIds)
   };
   $.ajax({
-      url : '../controller/eventos.php',
+      url : '../controller/deleteNotification.php',
       data : obj,
       type : 'POST',
       dataType : 'json',
       success : function(json) {
-        console.log(json);
-        getEvents(paginaActiva);
+        $('#deleteModal').closeModal();
+        getNotifications(paginaActiva);
+        definirPaginacion();
       },
       error : function(xhr, status) {
           Materialize.toast("Hubo un error al procesar su solicitud", 4000, "red");
@@ -239,7 +209,6 @@ function validacionesModal(){
   });
 
   $("#sl_rango_edad").change(function(){
-    console.log("LOL");
      if(this.value > 1){
        $("#txt_age1").css("display", "inline");
        $("#label_age").css("display", "inline");
@@ -286,6 +255,8 @@ function newNotification(){
       success : function(json) {
         Materialize.toast("Mensaje entregado con éxito", 4000, "green");
         limpiarCampos()
+        getNotifications(paginaActiva);
+        definirPaginacion();
       },
       error : function(xhr, status) {
           Materialize.toast("Hubo un error al procesar su solicitud", 4000, "red");
@@ -354,6 +325,12 @@ $(document).ready(function(){
      if(!tituloEmpty && !mensajeEmpty){
        newNotification();
      }
+   });
+
+   //Manejador del botón de eliminar selección
+   $("#delete-selection").on('click', function(){
+     $("#delete-message").html("¿Confirma que desea eliminar las notificaciones seleccionadas?");
+     dialogDelete();
    });
 
    definirPaginacion();

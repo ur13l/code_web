@@ -41,7 +41,7 @@ switch($action){
       END ASC, fecha_inicio LIMIT $min, 10";
     $result = mysqli_query($conexion, $consulta);
     $arr = array();
-    while($row = mysqli_fetch_array($result)){
+    while($row = mysqli_fetch_assoc($result)){
       array_push($arr, $row);
     }
     echo json_encode($arr);
