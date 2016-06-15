@@ -1,3 +1,4 @@
 archive
 node_modules
 src/app_php/conexion/conexion.php
+src/res/*
