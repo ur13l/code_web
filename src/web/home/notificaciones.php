@@ -37,11 +37,11 @@ if (isset($_SESSION['usuario_correo'])) {
     <div class="row">
         <h5>Nueva notificación</h5>
         <div class="input-field col s12">
-            <input placeholder="Título" id="titulo" type="text" class="validate">
+            <input placeholder="Título" id="titulo" type="text" maxlength="50" class="validate">
             <label for="titulo" data-error="Este campo es obligatorio">Título</label>
         </div>
         <div class="input-field col s12">
-            <textarea id="mensaje" class="materialize-textarea "></textarea>
+            <textarea id="mensaje" class="materialize-textarea " maxlength="2000"></textarea>
             <label for="mensaje" data-error="Este campo es obligatorio">Mensaje</label>
       </div>
       </div>
@@ -167,7 +167,7 @@ if (isset($_SESSION['usuario_correo'])) {
           <a href="#" class="waves-effect waves-green btn-flat" onclick="deleteNotifications()" id="md1_YesBtn">Sí</a>
      </div>
   </div>
-  
+
   <div class="fixed-action-btn" id="delete-selection" style="display:none; bottom: 10px; right: 100px;">
     <a class="btn-floating btn-large waves-effect waves-light green-code btn" >
       <i class="material-icons" id="new-event">delete</i>
