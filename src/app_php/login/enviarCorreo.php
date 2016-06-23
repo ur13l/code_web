@@ -16,9 +16,9 @@ function enviar($para, $codigo){
   $mail->Host = 'smtp.gmail.com';
   $mail->Port = 465; // or 587
   $mail->IsHTML(true);
-  $mail->Username = 'celdesitl@gmail.com';
-  $mail->Password = '123asdZXC';
-  $mail->SetFrom('celdesitl@gmail.com');
+  $mail->Username = 'correo@wow.com';
+  $mail->Password = '*********';
+  $mail->SetFrom('correo@wow.com');
   $mail->CharSet = 'UTF-8';
   $mail->Subject = 'Código para reestablecer contraseña';
   $mail->Body = '
