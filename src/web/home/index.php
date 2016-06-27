@@ -15,13 +15,8 @@
    });
  </script>
     <?php
-      session_start();
-      if (isset($_SESSION['usuario_correo'])) {
-        $correo = $_SESSION['usuario_correo'];
-      } else {
-        echo "No hay usuario";
-      }
-     ?>
+      include('../defines/checkLogin.php');
+   ?>    
 </head>
 <body>
   <?php

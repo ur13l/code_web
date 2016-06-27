@@ -13,7 +13,7 @@ if(isset($row)) {
   header("Location:web/home/index.php");
 }
 else{
-  echo "Correo o Contraseña incorrecta";
+  header("Location:indexError.html");
 
 }
 ?>

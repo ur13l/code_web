@@ -1,3 +1,9 @@
+<!--
+Autor: Felipe Uriel Infante Martínez
+Script que devuelve el template del encabezado mostrado en la interfaz web.
+Fecha: 01/05/16
+-->
+
 <?php
 echo '<nav>
   <div class="nav-wrapper blue-code">
@@ -8,13 +14,13 @@ echo '<nav>
         <li><a href="notificaciones.php">Notificaciones</a></li>
       <li><a href="eventos.php">Eventos</a></li>
       <li><a href="video.php">Video</a></li>
-      <li><a href="badges.html">Cerrar sesión</li>
+      <li><a href="../../logout.php">Cerrar sesión</a></li>
     </ul>
     <ul class="side-nav" id="mobile-demo">
         <li><a href="notificaciones.php">Notificaciones</a></li>
         <li><a href="eventos.php">Eventos</a></li>
         <li><a href="video.php">Video</a></li>
-        <li><a href="badges.html">Cerrar sesión</a></li>
+        <li><a href="../../logout.php">Cerrar sesión</a></li>
    </ul>
   </div>
 </nav>

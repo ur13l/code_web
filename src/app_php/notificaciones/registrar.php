@@ -8,6 +8,8 @@
    $token = $_POST['Token'];
    $id_login_app = $_POST['id_login_app'];
    $os = $_POST['os'];
+   $query = "DELETE FROM login_token WHERE token = '$token' OR id_login_app = '$id_login_app';";
+  mysqli_query($conexion, $query);
    $query = "INSERT INTO login_token VALUES ('$id_login_app','$token', '$os') ON
        DUPLICATE KEY UPDATE token = '$token', os = '$os';";
   mysqli_query($conexion, $query);

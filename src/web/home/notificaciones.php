@@ -29,6 +29,7 @@ if (isset($_SESSION['usuario_correo'])) {
 <body style="background:#f1f1f1">
   <?php
   include("../defines/nav.php");
+    include('../defines/checkLogin.php');
   ?>
   <div class="container" style="background:white;  padding:30px; margin-top:50px">
     <div class="row">
