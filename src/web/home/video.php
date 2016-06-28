@@ -33,7 +33,7 @@ if (isset($_SESSION['usuario_correo'])) {
     <div class="row">
         <h5>Video de activación actual</h5>
 
-				<video style="width: 70%; margin-left:15%" controls>
+				<video style="width: 70%; margin-left:15%" controls autoplay>
 				  <source src="../../res/video/video.mp4" type="video/mp4">
 				Your browser does not support the video tag.
 				</video>

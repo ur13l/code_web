@@ -1,4 +1,5 @@
 <?php
+include("../../app_php/conexion/conexion.php");
 $fileName = $_FILES["file1"]["name"]; // The file name
 $fileTmpLoc = $_FILES["file1"]["tmp_name"]; // File in the PHP tmp folder
 $fileType = $_FILES["file1"]["type"]; // The type of file it is
@@ -9,7 +10,13 @@ if (!$fileTmpLoc) { // if file not chosen
     exit();
 }
 if(move_uploaded_file($fileTmpLoc, "../../res/video/video.mp4")){
-    echo "$fileName upload is complete";
+
+  $conexion = connect();
+  $consulta = "INSERT INTO video VALUES (1, now(), '$fileSize') ON
+      DUPLICATE KEY UPDATE fecha_actualizacion = now(), tamano = '$fileSize'";
+  mysqli_query($conexion, $consulta);
+  $conexion->close();
+  echo '{"success":"true"}';
 } else {
     echo $fileTmpLoc;
     echo "move_uploaded_file function failed";

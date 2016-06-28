@@ -13,6 +13,7 @@ $action = $_POST['action'];
 $consulta = "SET NAMES UTF8";
 $titulo = $_POST['titulo'];
 $mensaje = $_POST['mensaje'];
+$enlace = $_POST['enlace'];
 $schedule = $_POST['schedule'];
 $fecha = $_POST['fecha'];
 $hora = $_POST['hora'];
@@ -76,7 +77,8 @@ if (mysqli_num_rows($result) > 0){
 
 $message = array(
  "title" => $titulo,
- "message" => $mensaje
+ "message" => $mensaje,
+ "link" => $enlace
  );
  $message_status = sendNotification($tokens, $message);
  if(isset($message_status)){

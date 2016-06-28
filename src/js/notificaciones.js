@@ -233,6 +233,7 @@ function newNotification(){
     action: 'create',
     titulo: $("#titulo").val(),
     mensaje: $("#mensaje").val(),
+    enlace: $("#enlace").val(),
     schedule: $("#chk_schedule").is(":checked"),
     fecha: $("#fecha").val(),
     hora: $("#hora").val(),

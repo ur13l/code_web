@@ -44,10 +44,6 @@ if (isset($_SESSION['usuario_correo'])) {
             <textarea id="mensaje" class="materialize-textarea " maxlength="2000"></textarea>
             <label for="mensaje" data-error="Este campo es obligatorio">Mensaje</label>
       </div>
-      <div class="input-field col s12">
-          <input placeholder="Enlace (Opcional)" id="enlace" type="text" class="validate">
-          <label for="enlace" data-error="Este campo es obligatorio">Enlace(Opcional)</label>
-    </div>
       </div>
       <!--
       <div class="row">
