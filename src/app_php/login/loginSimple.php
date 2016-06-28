@@ -21,7 +21,7 @@ if(isset($row)){
 }
 else{
   $row = array();
-  $row['id_login_app'] = 0;
+  $row['id_login_app'] = "0";
   echo json_encode($row, true);
 }
 
