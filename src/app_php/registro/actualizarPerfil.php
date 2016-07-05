@@ -14,21 +14,24 @@
   $codigo_postal = $_POST["codigo_postal"];
   $telefono = $_POST["telefono"];
 
-  $q1 = $_POST["nombre"] == '' ? "nombre = '$nombre'": "";
-  $q2 = $_POST["genero"] == '' ? "id_genero = '$genero'": "";
-  $q3 = $_POST["fec_nacimiento"] == '' ? "fec_nacimiento = '$fec_nacimiento'": "";
-  $q4 = $_POST["ocupacion"] == '' ? "id_ocupacion = '$ocupacion'": "";
-  $q5 = $_POST["codigo_postal"] == '' ? "codigo_postal = '$codigo_postal'": "";
-  $q6 = $_POST["telefono"] == '' ? "telefono = '$telefono'": "";
+
+  $q1 = $_POST["nombre"] != '' ? "nombre = '$nombre'": "nombre = null";
+  $q2 = $_POST["genero"] != '' ? "id_genero = '$genero'": "id_genero = null";
+  $q3 = $_POST["fec_nacimiento"] != '' ? "fec_nacimiento = '$fec_nacimiento'": "fec_nacimiento = null";
+  $q4 = $_POST["ocupacion"] != '' ? "id_ocupacion = '$ocupacion'": "id_ocupacion = null";
+  $q5 = $_POST["codigo_postal"] != '' ? "codigo_postal = '$codigo_postal'": "codigo_postal = null";
+  $q6 = $_POST["telefono"] != '' ? "telefono = '$telefono'": "telefono = null";
 
   //Se verifica que exista un registro del usuario en la tabla.
   $consulta = "SELECT id_login_app FROM datos_perfil WHERE id_login_app = '$id_login_app'";
+
   $result = mysqli_query($conexion, $consulta);
   $id = mysqli_fetch_row($result)[0];
 
   //Si el usuario ya existe se hace un UPDATE.
   if(isset($id)){
     $consulta = "UPDATE datos_perfil SET $q1, $q2, $q3, $q4, $q5, $q6 WHERE id_login_app = '$id'";
+
     $result = mysqli_query($conexion, $consulta);
     if($result){
       echo "success";
