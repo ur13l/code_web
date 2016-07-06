@@ -32,7 +32,10 @@ if (isset($_SESSION['usuario_correo'])) {
   ?>
   <div class="container" style="background:white;  padding:30px; margin-top:50px">
 
-        <a class="waves-effect waves-light btn green-code" id="enviar"><i class="material-icons left">send</i>Enviar</a>
+
+        <form class="" action="../controller/reportes.php" method="post">
+          <input type="submit" name="export_excel" class="waves-effect waves-light btn green-code" value="Enviar">
+        </form>
 
 
   </div>
