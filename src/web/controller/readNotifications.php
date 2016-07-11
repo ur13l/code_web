@@ -2,9 +2,8 @@
 #Autor: Uriel Infante
 #Controlador para devolver las notificaciones enviadas anteriormente.
 #Fecha: 13/06/2016
-
+#
 include("../../app_php/conexion/conexion.php");
-
 
 $conexion = connect();
 

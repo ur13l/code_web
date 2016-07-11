@@ -22,8 +22,6 @@ if (isset($_SESSION['usuario_correo'])) {
   <script type="text/javascript" src="../../materialize/js/materialize.js"></script>
   <script type="text/javascript" src="../../js/moment.js"></script>
   <script type="text/javascript" src="../../js/toastr.min.js"></script>
-  <script type="text/javascript" src="../../js/jquery.twbsPagination.min.js"></script>
-  <script type="text/javascript" src="../../js/notificaciones.js"> </script>
 
 </head>
 <body style="background:#f1f1f1">
@@ -32,10 +30,19 @@ if (isset($_SESSION['usuario_correo'])) {
   ?>
   <div class="container" style="background:white;  padding:30px; margin-top:50px">
 
+<h1>Reportes</h1>
+<ul>
+  <li>
+    <form class="" action="../controller/reportes.php" method="post">
+      <div class="row">
+        <h5 class="col s9" style="display:inline">Reporte de usuarios global</h5>
 
-        <form class="" action="../controller/reportes.php" method="post">
-          <input type="submit" name="export_excel" class="waves-effect waves-light btn green-code" value="Enviar">
-        </form>
+          <input type="submit" name="export_excel" class="waves-effect waves-light btn green-code col s3" value="Descargar Reporte">
+      </div>
+
+    </form></li>
+</ul>
+
 
 
   </div>

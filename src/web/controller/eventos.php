@@ -1,7 +1,9 @@
+
 <?php
 #Autor: Uriel Infante
 #Controlador de los eventos, CRUD de eventos en la base de datos..
 #Fecha: 15/05/2016
+
 include("../../app_php/conexion/conexion.php");
 $conexion = connect();
 $action = $_POST['action'];

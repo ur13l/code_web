@@ -2,9 +2,10 @@
 #Autor: Uriel Infante
 #Controlador que devuelve la tabla que será reporteada en CSV
 #Fecha: 05/07/2016
-#
-$connect = mysqli_connect("10.0.7.40", "root", "info2000", "code_web");
- $output = '';
+
+
+include("../../app_php/conexion/conexion.php");
+$connect = connect();
  if(isset($_POST["export_excel"]))
  {
       $sql = "SELECT  @n := @n + 1 as num, la.id_login_app, la.facebook, la.google, dp.fec_nacimiento, dp.codigo_postal, g.nombre as genero, o.nombre as ocupacion,

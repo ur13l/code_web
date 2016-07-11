@@ -12,6 +12,7 @@ echo '<nav>
 
     <ul class="right hide-on-med-and-down">
       <li><a href="reportes.php">Reportes</a></li>
+      <li><a href="usuarios.php">Usuarios</a></li>
       <li><a href="notificaciones.php">Notificaciones</a></li>
       <li><a href="eventos.php">Eventos</a></li>
       <li><a href="video.php">Video</a></li>
@@ -19,6 +20,7 @@ echo '<nav>
     </ul>
     <ul class="side-nav" id="mobile-demo">
         <li><a href="reportes.php">Reportes</a></li>
+        <li><a href="usuarios.php">Usuarios</a></li>
         <li><a href="notificaciones.php">Notificaciones</a></li>
         <li><a href="eventos.php">Eventos</a></li>
         <li><a href="video.php">Video</a></li>

@@ -1,4 +1,9 @@
 <?php
+#Autor: Uriel Infante
+#Controlador para cargar el video de activación nuevo.
+#Fecha: 20/06/2016
+#
+
 include("../../app_php/conexion/conexion.php");
 $fileName = $_FILES["file1"]["name"]; // The file name
 $fileTmpLoc = $_FILES["file1"]["tmp_name"]; // File in the PHP tmp folder

@@ -8,7 +8,7 @@
   $id_login_app = $_POST["id_login_app"];
 
   //Se traen los datos del perfil en un arreglo.
-  $consulta = "SELECT * FROM datos_perfil WHERE id_login_app = '$id_login_app'";
+  $consulta = "SELECT dp.*, dcp.estatura_actual as estatura, dcp.peso_actual as peso FROM datos_perfil dp, datos_complementarios_perfil dcp WHERE dp.id_login_app = '$id_login_app' AND dcp.id_login_app = '$id_login_app';";
   $result = mysqli_query($conexion, $consulta);
   $row = mysqli_fetch_array($result);
 
