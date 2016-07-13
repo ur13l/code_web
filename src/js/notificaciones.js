@@ -228,6 +228,18 @@ function validacionesModal(){
   });
 }
 
+function enviarNotificacion(){
+    var tituloEmpty = isEmpty($("#titulo"));
+    var mensajeEmpty = isEmpty($("#mensaje"));
+
+    if(!tituloEmpty && !mensajeEmpty){
+      $("#enviar").addClass('disabled');
+      $("#enviar").prop('disabled', true);
+      $('#enviar').removeClass('waves-effect')
+      newNotification();
+    }
+}
+
 function newNotification(){
   var obj = {
     action: 'create',
@@ -258,6 +270,11 @@ function newNotification(){
         limpiarCampos()
         getNotifications(paginaActiva);
         definirPaginacion();
+        $("#enviar").removeClass('disabled');
+        $("#enviar").addClass('waves-effect');
+        $("#enviar").prop('disabled', false);
+        $("#enviar").unbind('click', false);
+        //$("#enviar").on('click', enviarNotificacion);
       },
       error : function(xhr, status) {
           Materialize.toast("Hubo un error al procesar su solicitud", 4000, "red");
@@ -320,13 +337,7 @@ $(document).ready(function(){
 
    validacionesModal();
 
-   $("#enviar").on('click', function(){
-     var tituloEmpty = isEmpty($("#titulo"));
-     var mensajeEmpty = isEmpty($("#mensaje"));
-     if(!tituloEmpty && !mensajeEmpty){
-       newNotification();
-     }
-   });
+   $("#enviar").on('click',enviarNotificacion);
 
    //Manejador del botón de eliminar selección
    $("#delete-selection").on('click', function(){
