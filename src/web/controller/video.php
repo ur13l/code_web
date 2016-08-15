@@ -19,6 +19,8 @@ if(move_uploaded_file($fileTmpLoc, "../../res/video/video.mp4")){
   $conexion = connect();
   $consulta = "INSERT INTO video VALUES (1, now(), '$fileSize') ON
       DUPLICATE KEY UPDATE fecha_actualizacion = now(), tamano = '$fileSize'";
+
+echo $consulta;
   mysqli_query($conexion, $consulta);
   $conexion->close();
   echo '{"success":"true"}';

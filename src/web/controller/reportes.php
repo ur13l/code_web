@@ -8,10 +8,10 @@ include("../../app_php/conexion/conexion.php");
 $connect = connect();
  if(isset($_POST["export_excel"]))
  {
-      $sql = "SELECT  @n := @n + 1 as num, la.id_login_app, la.facebook, la.google, dp.fec_nacimiento, dp.codigo_postal, g.nombre as genero, o.nombre as ocupacion,
-dcp.peso_actual, dcp.estatura_actual, dcp.presion_elevada, dcp.glucosa_elevada, dcp.actividad_fisica, ea.descripcion as estado_animo FROM (select @n:=0) initvars,
-login_app la, datos_perfil dp LEFT JOIN genero g ON dp.id_genero = g.id_genero LEFT JOIN ocupacion o ON dp.id_ocupacion = o.id_ocupacion, datos_complementarios_perfil dcp, estado_animo ea WHERE
-la.id_login_app = dp.id_login_app AND la.id_login_app = dcp.id_login_app AND dcp.id_estado_animo = ea.id_estado_animo;";
+      $sql = "SELECT  DISTINCT @n := @n + 1 as num, la.id_login_app, la.facebook, la.google, dp.fec_nacimiento, dp.codigo_postal, g.nombre as genero, o.nombre as ocupacion,
+dcp.peso_actual, dcp.estatura_actual, dcp.presion_elevada, dcp.glucosa_elevada, dcp.actividad_fisica, dcp.lesion FROM (select @n:=0) initvars,
+login_app la, datos_perfil dp LEFT JOIN genero g ON dp.id_genero = g.id_genero LEFT JOIN ocupacion o ON dp.id_ocupacion = o.id_ocupacion, datos_complementarios_perfil dcp WHERE
+la.id_login_app = dp.id_login_app AND la.id_login_app = dcp.id_login_app;";
       $result = mysqli_query($connect, $sql);
       if(mysqli_num_rows($result) > 0)
       {
@@ -42,7 +42,7 @@ $output .= '</tr>';
                           <td>'.$row["presion_elevada"].'</td>
                           <td>'.$row["glucosa_elevada"].'</td>
                           <td>'.$row["actividad_fisica"].'</td>
-                          <td>'.$row["estado_animo"].'</td>
+                          <td>'.$row["lesion"].'</td>
                      </tr>
                 ';
            }

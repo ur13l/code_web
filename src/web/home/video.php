@@ -11,7 +11,7 @@ if (isset($_SESSION['usuario_correo'])) {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Notificaciones</title>
+  <title>Video</title>
   <link rel="stylesheet" href="../../materialize/css/materialize.css">
   <link rel="stylesheet" href="../../css/style.css">
   <link rel="stylesheet" href="../../css/lolliclock.css">
