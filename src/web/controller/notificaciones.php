@@ -74,12 +74,30 @@ if (mysqli_num_rows($result) > 0){
    }
 }
 
-
+/*
 $message = array(
  "title" => $titulo,
  "message" => $mensaje,
- "link" => $enlace
+ "link" => $enlace,
+
  );
+*
+/*
+$message = array(
+ "alert" => $titulo,
+  "sound" => 'default',
+ "link_url" => $url,
+ "category" => "URL_CATEGORY" );
+*/
+
+$message = array(
+   'title' => $titulo,
+                    'body' => $mensaje,
+                    'link_url' => $enlace,
+                    'sound' => 'default',
+                    'category' => 'URL_CATEGORY',
+		'tag' => $enlace);
+
  $message_status = sendNotification($tokens, $message);
  if(isset($message_status)){
    $success = array("success" => "true");

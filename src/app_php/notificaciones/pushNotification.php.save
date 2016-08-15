@@ -1,32 +1,25 @@
 <?php
 
-
     function sendNotification($tokens, $message){
       $url = "https://fcm.googleapis.com/fcm/send";
       $fields = array(
         'registration_ids' => $tokens,
         'notification' => $message,
-       'priority' => 'high',
-    'content_available' => true, );
-
-/*
-$fields = array(
-
-  'registration_ids' => $tokens,
-  'notification' => array(
-                    'title' => 'aaa',
-                    'body' => 'aa',
-                    'link_url' => 'http://blabla.com',
-                    'sound' => 'default',
-                    'category' => 'URL_CATEGORY'),
-    'priority' => 'normal' ,
-    'content_available' => true,
-);
-*/
+'content_available' => true,
+'category' => 'URL_CATEGORY',                );
       $headers = array(
   			'Authorization:key = AIzaSyCP6sP-BhfEgXrQoNGxBWJW_EKxc6gD0ro ',
   			'Content-Type: application/json'
 			);
+
+function debug_to_console( $data ) {
+
+    if ( is_array( $data ) )
+        $output = "<script>console.log( 'Debug Objects: " . implode( ',', $data) . "' );</script>";
+    else
+        $output = "<script>console.log( 'Debug Objects: " . $data . "' );</script>";
+
+    echo $output;
 
 
 	   $ch = curl_init();
@@ -41,11 +34,8 @@ $fields = array(
       if($result === FALSE){
         die('Curl failed ' . curl_error($ch));
       }
- 	
 
-     curl_close($ch);
-
-
+      curl_close($ch);
 
       return $result;
 

@@ -68,7 +68,7 @@ if (isset($_SESSION['usuario_correo'])) {
       -->
       <div class="row right">
         <a class="waves-effect waves-light btn modal-trigger green-code" href="#modal1"><i class="material-icons left">settings</i>Configurar Destinatarios</a>
-        <a class="waves-effect waves-light btn green-code" id="enviar"><i class="material-icons left">send</i>Enviar</a>
+        <button class="waves-effect waves-light btn green-code" id="enviar"><i class="material-icons left">send</i>Enviar</button>
 
       </div>
       <div class="row" style="margin-top:110px">
