@@ -46,6 +46,13 @@ $fields = array(
      curl_close($ch);
 
 
+<<<<<<< HEAD
+
+     curl_close($ch);
+
+
+=======
+>>>>>>> 36f43fe223a63b10c4d0d7affbf18d815ac8ab81
 
       return $result;
 
