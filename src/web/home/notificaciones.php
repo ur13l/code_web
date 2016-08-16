@@ -23,6 +23,7 @@ if (isset($_SESSION['usuario_correo'])) {
   <script type="text/javascript" src="../../js/ion.rangeSlider.js"></script>
   <script type="text/javascript" src="../../js/moment.js"></script>
   <script type="text/javascript" src="../../js/toastr.min.js"></script>
+  <script type="text/javascript" src="../../js/nouislider.min.js"></script>
   <script type="text/javascript" src="../../js/jquery.twbsPagination.min.js"></script>
   <script type="text/javascript" src="../../js/notificaciones.js"> </script>
 
@@ -152,9 +153,20 @@ if (isset($_SESSION['usuario_correo'])) {
           <div class="row">
             <h6 class="col s12"> Por rango de edad </h6>
             <div class="input-field col s12">
-              <p class="range-field">
-                <input type="range" id="imc_slider" min="0" max="100" />
-              </p>
+              <div id="range-input" class="noUi-target noUi-ltr noUi-horizontal noUi-background">
+                 <div class="noUi-base">
+                    <div class="noUi-origin noUi-connect" style="left: 39%;">
+                       <div class="noUi-handle noUi-handle-lower">
+                          <div class="range-label"><span>39</span></div>
+                       </div>
+                    </div>
+                    <div class="noUi-origin noUi-background" style="left: 50%;">
+                       <div class="noUi-handle noUi-handle-upper">
+                          <div class="range-label"><span>50</span></div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
             </div>
           </div>
           <div class="row">

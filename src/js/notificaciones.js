@@ -301,13 +301,13 @@ $(document).ready(function(){
   $('.modal-trigger').leanModal();
 
   //Definiendo el slider
-  noUiSlider.create(document.getElementById("imc_slider"), {
+  noUiSlider.create(document.getElementById("connect"), {
   start: [20, 80],
   connect: true,
   step: 1,
   range: {
     'min': 0,
-    'max': 100
+    'max': 122
   },
   format: wNumb({
     decimals: 0

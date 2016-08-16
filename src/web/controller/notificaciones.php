@@ -9,7 +9,6 @@ include("../../app_php/notificaciones/pushNotification.php");
 
 $conexion = connect();
 $action = $_POST['action'];
-
 $consulta = "SET NAMES UTF8";
 $titulo = $_POST['titulo'];
 $mensaje = $_POST['mensaje'];
@@ -64,6 +63,8 @@ mysqli_query($conexion, $consulta);
 
 $query = "SELECT lt.token FROM login_token lt, datos_perfil dp, datos_complementarios_perfil dcp WHERE lt.id_login_app = dp.id_login_app
 AND dp.id_login_app = dcp.id_login_app AND lt.id_login_app = dcp.id_login_app " . $where;
+
+
 
 $result = mysqli_query($conexion, $query);
 $tokens = array();

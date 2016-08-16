@@ -5,8 +5,8 @@
 
   include("../conexion/conexion.php");
   $conexion = connect();
-$consulta = "SET NAMES UTF8";
-mysqli_query($conexion, $consulta);
+  $consulta = "SET NAMES UTF8";
+  mysqli_query($conexion, $consulta);
   $id_login_app = $_POST["id_login_app"];
 
   //Se traen los datos del perfil en un arreglo.
