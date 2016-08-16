@@ -300,6 +300,20 @@ $(document).ready(function(){
   //Configuración para abrir modal
   $('.modal-trigger').leanModal();
 
+  //Definiendo el slider
+  noUiSlider.create(document.getElementById("imc_slider"), {
+  start: [20, 80],
+  connect: true,
+  step: 1,
+  range: {
+    'min': 0,
+    'max': 100
+  },
+  format: wNumb({
+    decimals: 0
+  })
+ });
+
   //Configuración del datePicker
   $('.datepicker').pickadate({
     labelMonthNext: 'Siguiente',

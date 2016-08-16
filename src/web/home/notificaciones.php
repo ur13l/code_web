@@ -20,6 +20,7 @@ if (isset($_SESSION['usuario_correo'])) {
   <script type="text/javascript" src="../../js/jquery-1.12.3.js"></script>
   <script type="text/javascript" src="../../js/lolliclock.js"></script>
   <script type="text/javascript" src="../../materialize/js/materialize.js"></script>
+  <script type="text/javascript" src="../../js/ion.rangeSlider.js"></script>
   <script type="text/javascript" src="../../js/moment.js"></script>
   <script type="text/javascript" src="../../js/toastr.min.js"></script>
   <script type="text/javascript" src="../../js/jquery.twbsPagination.min.js"></script>
@@ -114,13 +115,18 @@ if (isset($_SESSION['usuario_correo'])) {
           </div>
           <div class="row">
             <h6 class="col s12"> Condiciones especiales </h6>
-            <div class="input-field col s6">
+            <div class="input-field col s4">
               <input type="checkbox" id="chk_presion" class="filled-in checkbox-green-code" checked>
               <label for="chk_presion">Presión elevada</label>
             </div>
-            <div class="input-field col s6">
+            <div class="input-field col s4">
               <input type="checkbox" id="chk_glucosa" class="filled-in checkbox-green-code" checked>
               <label for="chk_glucosa">Glucosa elevada</label>
+            </div>
+
+            <div class="input-field col s4">
+              <input type="checkbox" id="chk_lesion" class="filled-in checkbox-green-code" checked>
+              <label for="chk_lesion">Lesionado</label>
             </div>
           </div>
           <div class="row">
@@ -142,6 +148,14 @@ if (isset($_SESSION['usuario_correo'])) {
               <input type="number" id="txt_age2" style="display:none" name="name" value="">
             </div>
             <p class="col s2" id="label_age" style="display:none"> años </p>
+          </div>
+          <div class="row">
+            <h6 class="col s12"> Por rango de edad </h6>
+            <div class="input-field col s12">
+              <p class="range-field">
+                <input type="range" id="imc_slider" min="0" max="100" />
+              </p>
+            </div>
           </div>
           <div class="row">
             <h6 class="col s12"> Sistema operativo </h6>

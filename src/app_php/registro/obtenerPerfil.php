@@ -5,6 +5,8 @@
 
   include("../conexion/conexion.php");
   $conexion = connect();
+$consulta = "SET NAMES UTF8";
+mysqli_query($conexion, $consulta);
   $id_login_app = $_POST["id_login_app"];
 
   //Se traen los datos del perfil en un arreglo.
@@ -15,7 +17,7 @@
   //Si el usuario está asignado se envía el arreglo, si no existe
   if(isset($row)){
     $row['success'] = "true";
-    echo json_encode($row);
+    echo json_encode($row, JSON_UNESCAPED_UNICODE);
   }
   //En caso de no existir .
   else {
